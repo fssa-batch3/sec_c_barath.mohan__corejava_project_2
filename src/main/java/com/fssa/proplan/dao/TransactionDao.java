@@ -9,12 +9,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.fssa.proplan.enumclass.TransactionType;
-import com.fssa.proplan.model.User;
+import com.fssa.proplan.model.User; 
 
 public class TransactionDao {
 
 	public static Connection getTransactionConnection() throws SQLException {
-		// Establishes a connection to the database.
+		// Establishes a connection to the database
 		String url = "jdbc:mysql://localhost:3306/proplan";
 		String user = "root";
 		String password = "123456";
@@ -27,7 +27,7 @@ public class TransactionDao {
         Connection con = null;
 
         try {
-            con = getTransactionConnection();
+            con = getTransactionConnection();  
             String query = "INSERT INTO transactions(user_id,transaction_type,date,amount,balance,remarks) "
                     + "VALUES(?,?,?,?,?,?)";
 
