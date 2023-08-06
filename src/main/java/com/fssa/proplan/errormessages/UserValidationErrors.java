@@ -12,5 +12,5 @@ public interface UserValidationErrors {
 	public static final String INVALID_PROFESSION = "Profession should not contain numbers";
 	public static final String INVALID_PHNO_NULL = "Phone number should not be null";
 	public static final String INVALID_PHNO = "Enter a valid phone number with 10 digits";
-	
+
 }
