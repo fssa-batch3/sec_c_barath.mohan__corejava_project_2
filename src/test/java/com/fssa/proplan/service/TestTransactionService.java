@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.proplan.dao.TransactionDao;
+import com.fssa.proplan.exceptions.DaoException;
+import com.fssa.proplan.exceptions.TransactionException;
 import com.fssa.proplan.model.User;
 import com.fssa.proplan.validator.TransactionValidator;
 
@@ -17,7 +19,7 @@ public class TestTransactionService {
 	// Test for adding valid income to the user's account.
 	// It should verify that the income is successfully added and return true.
 	@Test
-	public void testValidAddIncome() throws IllegalArgumentException, SQLException {
+	public void testValidAddIncome() throws DaoException, TransactionException {
 
 		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
 
@@ -33,20 +35,19 @@ public class TestTransactionService {
 
 	// Test for adding income with an invalid (negative) amount.
 	@Test
-	public void testInvalidAddIncomeAmount() throws IllegalArgumentException, SQLException {
+	public void testInvalidAddIncomeAmount() {
 
 		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
 
 		// It should assert that IllegalArgumentException is thrown.
-		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> transactionService.addIncome(user, -1, "Testing "));
+		Assertions.assertThrows(TransactionException.class, () -> transactionService.addIncome(user, -1, "Testing "));
 
 	}
 
 	// Test for adding a valid expense to the user's account.
 
 	@Test
-	public void testValidAddExpense() throws IllegalArgumentException, SQLException {
+	public void testValidAddExpense() throws DaoException, TransactionException {
 
 		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
 		if (transactionService.addIncome(user, 1000, "Testing ")) {
@@ -63,20 +64,19 @@ public class TestTransactionService {
 	// Test for adding expense with an invalid (negative) amount.
 
 	@Test
-	public void testInvalidAddExpenseAmount() throws IllegalArgumentException, SQLException {
+	public void testInvalidAddExpenseAmount() {
 
 		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
 
 		// It should assert that IllegalArgumentException is thrown.
-		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> transactionService.addIncome(user, -1, "Testing "));
+		Assertions.assertThrows(TransactionException.class, () -> transactionService.addIncome(user, -1, "Testing "));
 
 	}
 
 	// Test for retrieving valid income transaction details for the user.
 
 	@Test
-	public void testValidGetIncomeTransactionDetails() throws IllegalArgumentException, SQLException {
+	public void testValidGetIncomeTransactionDetails() throws DaoException {
 
 		// It should verify that the details are fetched successfully and return true.
 		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
@@ -94,7 +94,7 @@ public class TestTransactionService {
 
 	// Test for retrieving valid expense transaction details for the user.
 	@Test
-	public void testValidGetExpenseTransactionDetails() throws IllegalArgumentException, SQLException {
+	public void testValidGetExpenseTransactionDetails() throws DaoException {
 
 		// It should verify that the details are fetched successfully and return true.
 		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");

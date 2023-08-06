@@ -9,11 +9,12 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.proplan.errormessages.TransactionError;
+import com.fssa.proplan.exceptions.TransactionException;
 
 public class TestTransactionValidator {
 
 	@Test
-	public void testValidIncome() throws IllegalArgumentException, SQLException {
+	public void testValidIncome() throws TransactionException {
 		TransactionValidator validator = new TransactionValidator();
 		double validAmount = 1000.0;
 		boolean result = validator.addIncome(validAmount);
@@ -21,17 +22,17 @@ public class TestTransactionValidator {
 	}
 
 	@Test
-	public void testInvalidIncomeAmount() throws SQLException {
+	public void testInvalidIncomeAmount() {
 		TransactionValidator validator = new TransactionValidator();
 		double invalidAmount = -100.0; // Invalid amount (less than 1)
-		assertThrows(IllegalArgumentException.class, () -> validator.addIncome(invalidAmount));
+		assertThrows(TransactionException.class, () -> validator.addIncome(invalidAmount));
 	}
 
 	@Test
-	public void testInvalidIncomeAmountExceptionMessage() throws SQLException {
+	public void testInvalidIncomeAmountExceptionMessage() {
 		TransactionValidator validator = new TransactionValidator();
 		double invalidAmount = 0.0; // Invalid amount (less than 1)
-		IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+		TransactionException exception = assertThrows(TransactionException.class,
 				() -> validator.addIncome(invalidAmount));
 		assertEquals(TransactionError.INVALID_AMOUNT_ZERO, exception.getMessage());
 	}

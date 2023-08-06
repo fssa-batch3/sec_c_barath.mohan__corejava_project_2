@@ -1,10 +1,11 @@
 package com.fssa.proplan.service;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.fssa.proplan.dao.TransactionDao;
 import com.fssa.proplan.dao.UserDao;
+import com.fssa.proplan.exceptions.DaoException;
+import com.fssa.proplan.exceptions.TransactionException;
 import com.fssa.proplan.model.User;
 import com.fssa.proplan.validator.TransactionValidator;
 
@@ -22,10 +23,10 @@ public class TransactionService {
 
 	// Method to add income for the given user with the specified amount and
 	// remarks.
-	public boolean addIncome(User user, double amount, String remarks) throws IllegalArgumentException, SQLException {
+	public boolean addIncome(User user, double amount, String remarks) throws DaoException, TransactionException {
 		// Check if the user is null or doesn't exist in the UserDao.
 		if (user == null || !UserDao.isUserExist(user)) {
-			throw new IllegalArgumentException("The user doesn't exist");
+			throw new DaoException("The user doesn't exist");
 		}
 
 		// Validate the amount of income using the TransactionValidator.
@@ -43,10 +44,10 @@ public class TransactionService {
 
 	// Method to add an expense for the given user with the specified amount and
 	// remarks.
-	public boolean addExpense(User user, double amount, String remarks) throws IllegalArgumentException, SQLException {
+	public boolean addExpense(User user, double amount, String remarks) throws DaoException, TransactionException {
 		// Check if the user is null or doesn't exist in the UserDao.
 		if (user == null || !UserDao.isUserExist(user)) {
-			throw new IllegalArgumentException("The user doesn't exist");
+			throw new DaoException("The user doesn't exist");
 		}
 
 		// Validate the amount of expense using the TransactionValidator.
@@ -63,10 +64,10 @@ public class TransactionService {
 	}
 
 	// Static method to get the income transaction details for the given user.
-	public static ArrayList<ArrayList<String>> getIncomeTransactionDetails(User user) throws SQLException {
+	public static ArrayList<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
 		// Check if the user is null or doesn't exist in the UserDao.
 		if (user == null || !UserDao.isUserExist(user)) {
-			throw new IllegalArgumentException("The user doesn't exist");
+			throw new DaoException("The user doesn't exist");
 		}
 
 		// Retrieve the income transaction details from the TransactionDao.
@@ -74,10 +75,10 @@ public class TransactionService {
 	}
 
 	// Static method to get the expense transaction details for the given user.
-	public static ArrayList<ArrayList<String>> getExpenseTransactionDetails(User user) throws SQLException {
+	public static ArrayList<ArrayList<String>> getExpenseTransactionDetails(User user) throws DaoException {
 		// Check if the user is null or doesn't exist in the UserDao.
 		if (user == null || !UserDao.isUserExist(user)) {
-			throw new IllegalArgumentException("The user doesn't exist");
+			throw new DaoException("The user doesn't exist");
 		}
 
 		// Retrieve the expense transaction details from the TransactionDao.

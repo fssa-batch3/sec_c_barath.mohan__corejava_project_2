@@ -9,9 +9,9 @@ public enum TransactionType {
 		this.value = value;
 	}
 
-	public  String getStringValue() {
-		 
-		return value; 
+	public String getStringValue() {
+
+		return value;
 	}
 
 }

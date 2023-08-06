@@ -4,13 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.fssa.proplan.errormessages.UserValidationErrors;
+import com.fssa.proplan.exceptions.UserException;
 import com.fssa.proplan.model.User;
 
 public class UserValidator {
 
-	public static boolean isValidUser(User user) throws IllegalArgumentException {
+	public static boolean isValidUser(User user) throws UserException {
 		if (user == null) {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_USER_NULL);
+			throw new UserException(UserValidationErrors.INVALID_USER_NULL);
 		}
 		isValidName(user.getName());
 		isValidEmail(user.getEmailId());
@@ -19,12 +20,12 @@ public class UserValidator {
 		isValidPhoneNumber(user.getPhoneNumber());
 
 		return true;
-	}  
+	}
 
-	public static boolean isValidName(String name) throws IllegalArgumentException {
+	public static boolean isValidName(String name) throws UserException {
 
-		if (name == null || name.trim() == null|| name.trim().equals("")) {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_NAME_NULL);
+		if (name == null || name.trim() == null || name.trim().equals("")) {
+			throw new UserException(UserValidationErrors.INVALID_NAME_NULL);
 		}
 		String regexPattern = "^[^0-9]*$";
 
@@ -33,15 +34,15 @@ public class UserValidator {
 		Matcher matcher = pattern.matcher(name);
 
 		if (!matcher.matches()) {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_NAME);
+			throw new UserException(UserValidationErrors.INVALID_NAME);
 		}
 		return true;
 	}
 
-	public static boolean isValidEmail(String email) throws IllegalArgumentException {
+	public static boolean isValidEmail(String email) throws UserException {
 
-		if (email == null || email.trim() == null||email.trim()=="") {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_EMAIL_NULL);
+		if (email == null || email.trim() == null || email.trim() == "") {
+			throw new UserException(UserValidationErrors.INVALID_EMAIL_NULL);
 		}
 		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
@@ -49,14 +50,14 @@ public class UserValidator {
 		Matcher matcher = pattern.matcher(email.trim());
 
 		if (!matcher.matches()) {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_EMAIL);
+			throw new UserException(UserValidationErrors.INVALID_EMAIL);
 		}
 		return true;
 	}
 
-	public static boolean isValidPassword(String password) throws IllegalArgumentException {
-		if (password == null || password.trim() == null||password.trim()=="") {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_PASSWORD_NULL);
+	public static boolean isValidPassword(String password) throws UserException {
+		if (password == null || password.trim() == null || password.trim() == "") {
+			throw new UserException(UserValidationErrors.INVALID_PASSWORD_NULL);
 		}
 		// At least one special character (e.g., !@#$%^&*()-_=+[]{}|;:'",.<>?/)
 		String regexPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
@@ -69,14 +70,14 @@ public class UserValidator {
 
 		// Return true if the password matches the pattern, otherwise false
 		if (!matcher.matches()) {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_PASSWORD);
-		} 
+			throw new UserException(UserValidationErrors.INVALID_PASSWORD);
+		}
 		return true;
 	}
 
-	public static boolean isValidProfession(String profession) throws IllegalArgumentException {
-		if (profession == null || profession.trim() == null||profession.trim()=="") {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_PROFESSION_NULL);
+	public static boolean isValidProfession(String profession) throws UserException {
+		if (profession == null || profession.trim() == null || profession.trim() == "") {
+			throw new UserException(UserValidationErrors.INVALID_PROFESSION_NULL);
 		}
 
 		String regexPattern = "^[^0-9]*$";
@@ -86,15 +87,15 @@ public class UserValidator {
 		Matcher matcher = pattern.matcher(profession);
 
 		if (!matcher.matches()) {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_PROFESSION);
+			throw new UserException(UserValidationErrors.INVALID_PROFESSION);
 		}
 		return true;
 
 	}
 
-	public static boolean isValidPhoneNumber(String phNo) throws IllegalArgumentException {
-		if (phNo == null || phNo.trim() == null||phNo.trim()=="") {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_PHNO_NULL);
+	public static boolean isValidPhoneNumber(String phNo) throws UserException {
+		if (phNo == null || phNo.trim() == null || phNo.trim() == "") {
+			throw new UserException(UserValidationErrors.INVALID_PHNO_NULL);
 		}
 		String regexPattern = "^[0-9]{10}$";
 
@@ -105,9 +106,9 @@ public class UserValidator {
 		Matcher matcher = pattern.matcher(phNo.trim());
 
 		if (!matcher.matches()) {
-			throw new IllegalArgumentException(UserValidationErrors.INVALID_PHNO);
+			throw new UserException(UserValidationErrors.INVALID_PHNO);
 		}
 		return true;
-	} 
+	}
 
 }

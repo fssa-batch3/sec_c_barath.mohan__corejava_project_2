@@ -1,9 +1,12 @@
 package com.fssa.proplan.model;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
+
 import com.fssa.proplan.dao.TransactionDao;
 import com.fssa.proplan.dao.UserDao;
+import com.fssa.proplan.exceptions.DaoException;
+import com.fssa.proplan.exceptions.TransactionException;
+import com.fssa.proplan.exceptions.UserException;
 import com.fssa.proplan.service.TransactionService;
 import com.fssa.proplan.service.UserService;
 import com.fssa.proplan.validator.TransactionValidator;
@@ -78,31 +81,32 @@ public class User {
 		System.out.println("New Account is created successfully");
 	}
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws DaoException, UserException, TransactionException {
 
-		User user1 = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
+		User user1 = new User("Mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
 
 		UserService userService = new UserService(new UserDao(), new UserValidator());
 
 //		userService.addUser(user1);
- 
-		ArrayList<String> ar = UserDao.getAllUserEmails();
 
-		System.out.println(ar);
+//		ArrayList<String> ar = UserDao.getAllUserEmails();
+
+//		System.out.println(ar); 
 
 		TransactionService TransactionService = new TransactionService(new TransactionDao(),
 				new TransactionValidator());
-//
-//		System.out.println(TransactionService.getIncomeTransactionDetails(user1));
-//		System.out.println(TransactionService.getExpenseTransactionDetails(user1));
 
-		
+		System.out.println(TransactionService.getIncomeTransactionDetails(user1));
+		System.out.println(TransactionService.getExpenseTransactionDetails(user1));
+
 //		UserDao.deleteUser(user1);
-//		TransactionService.addIncome(user1, 12000, "Salary"); 
-
+		TransactionService.addIncome(user1, 12000, "Salary");
+//
 //		TransactionService.addExpense(user1, 10000, "Entertainment");
 
-		userService.clearAll(); 
+//		TransactionService.
+
+//		userService.clearAll(); 
 
 	}
 
