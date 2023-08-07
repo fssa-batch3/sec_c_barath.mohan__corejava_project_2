@@ -83,9 +83,9 @@ public class User {
 
 	public static void main(String[] args) throws DaoException, UserException, TransactionException {
 
-		User user1 = new User("Mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
-
-		UserService userService = new UserService(new UserDao(), new UserValidator());
+//		User user1 = new User("Mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
+//
+//		UserService userService = new UserService(new UserDao(), new UserValidator());
 
 //		userService.addUser(user1);
 
@@ -93,14 +93,14 @@ public class User {
 
 //		System.out.println(ar); 
 
-		TransactionService TransactionService = new TransactionService(new TransactionDao(),
-				new TransactionValidator());
+//		TransactionService TransactionService = new TransactionService(new TransactionDao(),
+//				new TransactionValidator());
 
-		System.out.println(TransactionService.getIncomeTransactionDetails(user1));
-		System.out.println(TransactionService.getExpenseTransactionDetails(user1));
+//		System.out.println(TransactionService.getIncomeTransactionDetails(user1));
+//		System.out.println(TransactionService.getExpenseTransactionDetails(user1));
 
 //		UserDao.deleteUser(user1);
-		TransactionService.addIncome(user1, 12000, "Salary");
+//		TransactionService.addIncome(user1, 12000, "Salary");
 //
 //		TransactionService.addExpense(user1, 10000, "Entertainment");
 

@@ -39,7 +39,7 @@ public class TransactionService {
 		}
 
 		// If the amount is not valid, return false.
-		return false;
+		return false; 
 	}
 
 	// Method to add an expense for the given user with the specified amount and
@@ -62,6 +62,8 @@ public class TransactionService {
 		// If the amount is not valid, return false.
 		return false;
 	}
+	
+	
 
 	// Static method to get the income transaction details for the given user.
 	public static ArrayList<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {

@@ -2,24 +2,47 @@ package com.fssa.proplan.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import com.fssa.proplan.exceptions.DaoException;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class ProplanDao {
 
 	public static Connection getSchemaConnection() throws DaoException {
-		// Database URL, username, and password for the MySQL database.
-		String url = "jdbc:mysql://localhost:3306/proplan";
-		String user = "root";
-		String password = "123456";
+	    Connection con = null;
 
-		// Establishes a connection to the database using DriverManager.
+        String url, userName, passWord;
+
+        if (System.getenv("CI") != null) {
+            url = System.getenv("DATABASE_HOST");
+            userName = System.getenv("DATABASE_USERNAME");
+            passWord = System.getenv("DATABASE_PASSWORD");
+        } else {
+            Dotenv env = Dotenv.load();
+            url = env.get("DATABASE_HOST");
+            userName = env.get("DATABASE_USERNAME");
+            passWord = env.get("DATABASE_PASSWORD");
+        }
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(url, userName, passWord);
+            System.out.println("Hi");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Unable to connect to the database");
+        }
+        return con;
+	}
+	
+	public static void main(String[] args) {
+		
 		try {
-			return DriverManager.getConnection(url, user, password);
-		} catch (SQLException ex) {
-
-			throw new DaoException(ex.getMessage());
+			Connection conn = getSchemaConnection();
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

@@ -58,7 +58,7 @@ public class UserDao {
 
 		try (Connection con = ProplanDao.getSchemaConnection()) {
 			// SQL query to retrieve all email addresses from the 'user' table.
-			String query = "SELECT email_id FROM USER";
+			String query = "SELECT email_id FROM user";
 
 			// Creates a Statement object to execute the query.
 			try (Statement smt = con.createStatement()) {
@@ -118,7 +118,7 @@ public class UserDao {
 	// Retrieves the user_id of a user based on their name from the 'user' table.
 	public static int getUserIdByName(String name) throws DaoException {
 
-		int user_id = 0;
+		int user_id = 0; 
 
 		try (Connection con = ProplanDao.getSchemaConnection()) {
 			// SQL query to retrieve the user_id based on the user's name.
@@ -171,7 +171,7 @@ public class UserDao {
 				psmt.close();
 			}
 
-			return true;
+			return true; 
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
 		}

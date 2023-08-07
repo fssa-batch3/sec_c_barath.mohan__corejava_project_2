@@ -6,11 +6,38 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.proplan.exceptions.UserException;
+import com.fssa.proplan.model.User;
 
 public class TestUserValidator {
 
 	// Test cases for isValidName() method
+	
+	@Test
+	public void testIsValidUserValid() throws UserException {
+		User user1 = new User("Barath", "1234567890", "student", "mohan1@gmail.com", "baGra@t1");
+		
+		
+		assertTrue(UserValidator.isValidUser(user1));
+	}
+	
+	@Test
+	public void testIsValidUserInvalid() throws UserException {
+		
+		User user1 = new User();
+		
+		user1.setDisplayName("barathCharm");
+		user1.setEmailId("barath@123");
+		user1.setName("barath");
+		user1.setPassword("0");
+		user1.setPhoneNumber("1234567890");
+		user1.setProfession("student");
+		
+		assertThrows(UserException.class, () -> UserValidator.isValidUser(user1));
+	}
+	
+	
 
+	
 	@Test
 	public void testValidName() throws UserException {
 		// Test if the method accepts a valid name with alphabets and spaces

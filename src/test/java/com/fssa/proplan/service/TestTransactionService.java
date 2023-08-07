@@ -50,7 +50,7 @@ public class TestTransactionService {
 	public void testValidAddExpense() throws DaoException, TransactionException {
 
 		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
-		if (transactionService.addIncome(user, 1000, "Testing ")) {
+		if (transactionService.addExpense(user, 1000, "Testing ")) {
 			// It should verify that the expense is successfully added and return true.
 			Assertions.assertTrue(true, "Expense is added successfully!");
 		} else {
@@ -69,7 +69,7 @@ public class TestTransactionService {
 		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
 
 		// It should assert that IllegalArgumentException is thrown.
-		Assertions.assertThrows(TransactionException.class, () -> transactionService.addIncome(user, -1, "Testing "));
+		Assertions.assertThrows(TransactionException.class, () -> transactionService.addExpense(user, -1, "Testing "));
 
 	}
 
