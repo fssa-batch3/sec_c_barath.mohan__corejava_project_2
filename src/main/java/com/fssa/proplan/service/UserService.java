@@ -17,6 +17,8 @@ public class UserService {
 		this.userDao = userDao;
 		this.userValidator = userValidator;
 	}
+	
+
 
 	// Adds a new user to the database if the user is valid and doesn't already
 	// exist.
@@ -32,6 +34,7 @@ public class UserService {
 			System.out.println("User is added to DB successfully!");
 			return true;
 		}
+		
 		return false;
 	}
 
