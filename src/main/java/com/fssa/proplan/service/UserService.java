@@ -6,10 +6,13 @@ import com.fssa.proplan.dao.TransactionDao;
 import com.fssa.proplan.dao.UserDao;
 import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.exceptions.UserException;
+import com.fssa.proplan.logger.Logger;
 import com.fssa.proplan.model.User;
 import com.fssa.proplan.validator.UserValidator;
 
 public class UserService {
+	
+	static Logger logger = new Logger();
 	private UserDao userDao;
 	private UserValidator userValidator;
 
@@ -31,7 +34,7 @@ public class UserService {
 			}
 			// Add the user to the database
 			userDao.addUser(user);
-			System.out.println("User is added to DB successfully!");
+			logger.info("User is added to DB successfully!");
 			return true;
 		}
 		

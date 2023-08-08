@@ -6,11 +6,13 @@ import com.fssa.proplan.dao.TransactionDao;
 import com.fssa.proplan.dao.UserDao;
 import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.exceptions.TransactionException;
+import com.fssa.proplan.logger.Logger;
 import com.fssa.proplan.model.User;
 import com.fssa.proplan.validator.TransactionValidator;
 
 public class TransactionService {
 
+	static Logger logger = new Logger();
 	private TransactionDao transactionDao;
 	private TransactionValidator transactionValidator;
 
@@ -33,13 +35,12 @@ public class TransactionService {
 		if (transactionValidator.addIncome(amount)) {
 			// If the amount is valid, add the income to the TransactionDao and print
 			// success message.
-			transactionDao.addIncome(user, amount, remarks);
-			System.out.println("Income has been added successfully");
+			transactionDao.addIncome(user, amount, remarks); 
+			logger.info("Income has been added successfully");
 			return true;
 		}
-
 		// If the amount is not valid, return false.
-		return false; r̥
+		return false; 
 	}
 
 	// Method to add an expense for the given user with the specified amount and
@@ -55,7 +56,7 @@ public class TransactionService {
 			// If the amount is valid, add the expense to the TransactionDao and print
 			// success message.
 			transactionDao.addExpense(user, amount, remarks);
-			System.out.println("Expense has been added successfully");
+			logger.info("Expense has been added successfully");
 			return true;
 		}
 
@@ -86,5 +87,7 @@ public class TransactionService {
 		// Retrieve the expense transaction details from the TransactionDao.
 		return TransactionDao.getExpenseTransactionDetails(user);
 	}
+	
+	
 
 }
