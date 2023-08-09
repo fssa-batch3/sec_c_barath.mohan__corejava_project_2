@@ -7,9 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.fssa.proplan.exceptions.DaoException;
+import com.fssa.proplan.logger.Logger;
 import com.fssa.proplan.model.User;
 
 public class BalanceDao {
+	
+	static Logger logger = new Logger();
 	// Method to create a new user balance with initial value 0
 	public static boolean createNewUserBalance(User user) throws DaoException {
 
@@ -26,7 +29,7 @@ public class BalanceDao {
 				// Execute the update query to insert the new record
 				int rowAffected = psmt.executeUpdate();
 
-				System.out.println(rowAffected + "row/rows affected & Balance has been set 0");
+				logger.info(rowAffected + "row/rows affected & Balance has been set 0");
 			}
 
 		} catch (SQLException ex) {
@@ -53,7 +56,7 @@ public class BalanceDao {
 				// Execute the update query to update the user's balance
 				int rowAffected = psmt.executeUpdate();
 
-				System.out.println(rowAffected + "row/rows affected & Balance has been updated");
+				logger.info(rowAffected + "row/rows affected & Balance has been updated");
 			}
 
 		} catch (SQLException ex) {
@@ -84,7 +87,8 @@ public class BalanceDao {
 						balance = rs.getDouble("balance");
 					}
 
-					System.out.println("Balance Successfully fetched");
+					logger.info("Balance Successfully fetched");
+					
 					return balance;
 				}
 
@@ -107,9 +111,9 @@ public class BalanceDao {
 				// Execute the update query to clear all records in the 'balance' table
 				int rowAffected = smt.executeUpdate(query);
 
-				System.out.println(rowAffected + "row/rows affected ");
+				logger.info(rowAffected + "row/rows affected ");
 
-				System.out.println("Balance Table values are cleared");
+				logger.info("Balance Table values are cleared");
 			}
 
 		} catch (SQLException ex) {

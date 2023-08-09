@@ -6,7 +6,7 @@ public class Logger {
 		System.out.println(obj);
 	}
 
-	public void info(Object obj) {
+	public  void info(Object obj) {
 		System.out.println(obj);
 	}
 

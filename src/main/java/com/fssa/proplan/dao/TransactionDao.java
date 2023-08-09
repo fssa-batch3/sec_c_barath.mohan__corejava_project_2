@@ -9,10 +9,11 @@ import java.util.ArrayList;
 
 import com.fssa.proplan.enumclass.TransactionType;
 import com.fssa.proplan.exceptions.DaoException;
+import com.fssa.proplan.logger.Logger;
 import com.fssa.proplan.model.User;
 
 public class TransactionDao {
-
+	static Logger logger = new Logger();
 	// Adds income transaction for the given user.
 	public boolean addIncome(User user, double amount, String remarks) throws DaoException {
 		try (Connection con = ProplanDao.getSchemaConnection()) {
@@ -43,7 +44,7 @@ public class TransactionDao {
 					throw new DaoException(ex.getMessage());
 				}
 
-				System.out.println(rowAffected + " row/rows affected ");
+				logger.info(rowAffected + " row/rows affected ");
 			}
 
 		} catch (SQLException e) {
@@ -78,7 +79,7 @@ public class TransactionDao {
 					throw new DaoException(ex.getMessage());
 				}
 
-				System.out.println(rowAffected + "row/rows affected ");
+				logger.info(rowAffected + "row/rows affected ");
 			}
 
 		} catch (SQLException e) {
@@ -96,9 +97,9 @@ public class TransactionDao {
 
 				int rowAffected = smt.executeUpdate(query);
 
-				System.out.println(rowAffected + "row/rows affected ");
+				logger.info(rowAffected + "row/rows affected ");
 
-				System.out.println("Transactions Table values are cleared");
+				logger.info("Transactions Table values are cleared");
 
 			}
 
@@ -147,6 +148,8 @@ public class TransactionDao {
 		}
 
 	}
+	
+	
 
 	public static ArrayList<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
 		// Retrieves the income transaction details for the given user.

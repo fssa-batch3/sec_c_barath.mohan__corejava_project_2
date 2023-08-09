@@ -7,8 +7,8 @@
   
   <properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>7</maven.compiler.source>
-    <maven.compiler.target>7</maven.compiler.target>
+		<maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
 
 
 		<sonar.projectKey>fssa-batch3_sec_c_barath.mohan__corejava_project_2</sonar.projectKey>
@@ -28,7 +28,7 @@
 			<artifactId>junit-jupiter</artifactId>
 			<version>5.9.1</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>  
 		<dependency>
    			 <groupId>mysql</groupId>
    			 <artifactId>mysql-connector-java</artifactId>

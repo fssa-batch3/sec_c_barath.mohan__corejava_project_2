@@ -7,9 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import com.fssa.proplan.exceptions.DaoException;
+import com.fssa.proplan.logger.Logger;
 import com.fssa.proplan.model.User;
 
 public class UserDao {
+	static Logger logger = new Logger();
 
 	// Adds a new user to the database based on the provided User object.
 	public static boolean addUser(User user) throws DaoException {
@@ -32,7 +34,7 @@ public class UserDao {
 				int rowAffected = psmt.executeUpdate();
 
 				// Prints the number of rows affected by the insert query.
-				System.out.println(rowAffected + " row/rows affected");
+				logger.info(rowAffected + " row/rows affected");
 
 				// Creates a new balance entry for the newly added user.
 				try {
@@ -72,6 +74,7 @@ public class UserDao {
 					}
 				}
 			}
+			con.close();
 
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
@@ -94,9 +97,9 @@ public class UserDao {
 				int rowAffected = smt.executeUpdate(query);
 
 				// Prints the number of rows affected by the delete query.
-				System.out.println(rowAffected + " row/rows affected");
+				logger.info(rowAffected + " row/rows affected");
 
-				System.out.println("User Table values are cleared");
+				logger.info("User Table values are cleared");
 			}
 
 		} catch (SQLException e) {
@@ -118,7 +121,7 @@ public class UserDao {
 	// Retrieves the user_id of a user based on their name from the 'user' table.
 	public static int getUserIdByName(String name) throws DaoException {
 
-		int user_id = 0; 
+		int user_id = 0;
 
 		try (Connection con = ProplanDao.getSchemaConnection()) {
 			// SQL query to retrieve the user_id based on the user's name.
@@ -171,7 +174,7 @@ public class UserDao {
 				psmt.close();
 			}
 
-			return true; 
+			return true;
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
 		}
