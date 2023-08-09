@@ -119,19 +119,19 @@ public class UserDao {
 	}
 
 	// Retrieves the user_id of a user based on their name from the 'user' table.
-	public static int getUserIdByName(String name) throws DaoException {
+	public static int getUserIdByEmail(String email) throws DaoException {
 
 		int user_id = 0;
 
 		try (Connection con = ProplanDao.getSchemaConnection()) {
 			// SQL query to retrieve the user_id based on the user's name.
-			String query = "SELECT user_id FROM user where name=?";
+			String query = "SELECT user_id FROM user where email_id=?";
 
 			// Prepares the SQL query with the provided user name.
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
 				// Sets the user name in the PreparedStatement.
-				psmt.setString(1, name);
+				psmt.setString(1, email);
 
 				// Executes the query and retrieves the results in a ResultSet.
 				try (ResultSet rs = psmt.executeQuery();) {
@@ -155,7 +155,7 @@ public class UserDao {
 	public static boolean deleteUser(User user) throws DaoException {
 
 		// Retrieves the user_id of the user based on their name.
-		int user_id = getUserIdByName(user.getName());
+		int user_id = getUserIdByEmail(user.getName());
 
 		try (Connection con = ProplanDao.getSchemaConnection()) {
 

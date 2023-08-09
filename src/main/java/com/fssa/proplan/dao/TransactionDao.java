@@ -28,7 +28,7 @@ public class TransactionDao {
 				// Calculate the new balance after adding the income.
 				double balance = BalanceDao.getBalanceByUser(user) + amount;
 
-				psmt.setInt(1, UserDao.getUserIdByName(user.getName()));
+				psmt.setInt(1, UserDao.getUserIdByEmail(user.getEmailId()));
 				psmt.setString(2, TransactionType.INCOME.getStringValue());
 				psmt.setDate(3, sqlDate);
 				psmt.setDouble(4, amount);
@@ -65,7 +65,7 @@ public class TransactionDao {
 				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
 				double balance = BalanceDao.getBalanceByUser(user) - amount;
-				psmt.setInt(1, UserDao.getUserIdByName(user.getName()));
+				psmt.setInt(1, UserDao.getUserIdByEmail(user.getEmailId()));
 				psmt.setString(2, TransactionType.EXPENSE.getStringValue());
 				psmt.setDate(3, sqlDate);
 				psmt.setDouble(4, amount);
@@ -118,7 +118,7 @@ public class TransactionDao {
 			String query = "SELECT transaction_type,date,amount,remarks FROM transactions where user_id=? AND transaction_type=?";
 
 			// Get the user's ID from the user's name.
-			int userId = UserDao.getUserIdByName(user.getName());
+			int userId = UserDao.getUserIdByEmail(user.getEmailId());
 
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 

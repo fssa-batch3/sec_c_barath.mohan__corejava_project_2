@@ -21,7 +21,7 @@ public class TestTransactionService {
 	@Test
 	public void testValidAddIncome() throws DaoException, TransactionException {
 
-		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
+		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
 
 		// If the income is not added, the test should fail with an error message.
 		if (transactionService.addIncome(user, 1000, "Testing ")) {
@@ -30,14 +30,14 @@ public class TestTransactionService {
 			Assertions.fail("Income is not added. AddIncome() method failed");
 		}
 		;
-
+ 
 	}
 
 	// Test for adding income with an invalid (negative) amount.
 	@Test
 	public void testInvalidAddIncomeAmount() {
 
-		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
+		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
 
 		// It should assert that IllegalArgumentException is thrown.
 		Assertions.assertThrows(TransactionException.class, () -> transactionService.addIncome(user, -1, "Testing "));
@@ -49,8 +49,8 @@ public class TestTransactionService {
 	@Test
 	public void testValidAddExpense() throws DaoException, TransactionException {
 
-		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
-		if (transactionService.addExpense(user, 1000, "Testing ")) {
+		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
+		if (transactionService.addExpense(user, 100, "Testing ")) {
 			// It should verify that the expense is successfully added and return true.
 			Assertions.assertTrue(true, "Expense is added successfully!");
 		} else {
@@ -66,7 +66,7 @@ public class TestTransactionService {
 	@Test
 	public void testInvalidAddExpenseAmount() {
 
-		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
+		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
 
 		// It should assert that IllegalArgumentException is thrown.
 		Assertions.assertThrows(TransactionException.class, () -> transactionService.addExpense(user, -1, "Testing "));
@@ -79,7 +79,7 @@ public class TestTransactionService {
 	public void testValidGetIncomeTransactionDetails() throws DaoException {
 
 		// It should verify that the details are fetched successfully and return true.
-		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
+		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
 		ArrayList<ArrayList<String>> details = transactionService.getIncomeTransactionDetails(user);
 
 		if (details != null) {
@@ -97,7 +97,7 @@ public class TestTransactionService {
 	public void testValidGetExpenseTransactionDetails() throws DaoException {
 
 		// It should verify that the details are fetched successfully and return true.
-		User user = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
+		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
 		ArrayList<ArrayList<String>> details = transactionService.getExpenseTransactionDetails(user);
 
 		if (details != null) {

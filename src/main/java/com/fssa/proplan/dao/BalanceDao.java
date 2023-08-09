@@ -24,7 +24,7 @@ public class BalanceDao {
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
 				// Set the user_id in the PreparedStatement using UserDao's method
-				psmt.setInt(1, UserDao.getUserIdByName(user.getName()));
+				psmt.setInt(1, UserDao.getUserIdByEmail(user.getEmailId()));
 
 				// Execute the update query to insert the new record
 				int rowAffected = psmt.executeUpdate();
@@ -51,7 +51,7 @@ public class BalanceDao {
 				// Set the new balance and user_id in the PreparedStatement using UserDao's
 				// method
 				psmt.setDouble(1, balance);
-				psmt.setInt(2, UserDao.getUserIdByName(user.getName()));
+				psmt.setInt(2, UserDao.getUserIdByEmail(user.getEmailId()));
 
 				// Execute the update query to update the user's balance
 				int rowAffected = psmt.executeUpdate();
@@ -77,7 +77,7 @@ public class BalanceDao {
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
 				// Set the user_id in the PreparedStatement using UserDao's method
-				psmt.setInt(1, UserDao.getUserIdByName(user.getName()));
+				psmt.setInt(1, UserDao.getUserIdByEmail(user.getEmailId()));
 
 				// Execute the query and get the result set
 				try (ResultSet rs = psmt.executeQuery()) {
