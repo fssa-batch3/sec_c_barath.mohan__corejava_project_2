@@ -16,7 +16,7 @@ import com.fssa.proplan.model.User;
 	@Test
 	 void testIsValidUserValid() throws UserException {
 		User user1 = new User("Barath", "1234567890", "student", "mohan1@gmail.com", "baGra@t1");
-
+ 
 		assertTrue(userValidator.isValidUser(user1));
 	}
 
@@ -29,7 +29,7 @@ import com.fssa.proplan.model.User;
 		user1.setEmailId("barath@123");
 		user1.setName("barath");
 		user1.setPassword("0");
-		user1.setPhoneNumber("1234567890");
+		user1.setPhoneNumber("1234567890"); 
 		user1.setProfession("student");
 
 		assertThrows(UserException.class, () -> userValidator.isValidUser(user1));
@@ -46,13 +46,13 @@ import com.fssa.proplan.model.User;
 		// Test if the method accepts a valid name with leading and trailing spaces
 		assertTrue(userValidator.isValidName("   Jane Smith   "));
 	}
-
+ 
 	@Test
 	 void testInvalidNameWithDigits() {
 		// Test if the method throws an exception for a name containing digits
 		assertThrows(UserException.class, () -> userValidator.isValidName("John123"));
 	}
-
+ 
 	@Test
 	 void testNullName() {
 		// Test if the method throws an exception for a null name

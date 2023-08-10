@@ -32,7 +32,7 @@ public class UserService {
 			// Check if the user already exists in the database
 			if (userDao.isUserExist(user)) {
 				throw new DaoException("User already exists");
-			}
+			} 
 			// Add the user to the database
 			userDao.addUser(user);
 			logger.info("User is added to DB successfully!");

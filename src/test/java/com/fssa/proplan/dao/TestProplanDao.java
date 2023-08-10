@@ -10,20 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.proplan.exceptions.DaoException;
 
- class TestProplanDao {
+class TestProplanDao {
 
-	@Test
-	 void testGetSchemaConnection() throws DaoException, SQLException {
+	@Test 
+	void testGetSchemaConnection() throws DaoException, SQLException {
 
 		Connection con = ConnectionUtil.getSchemaConnection();
 
-		if (con != null) { 
+		if (con != null) {
 			con.close();
 			assertTrue(true);
 		} else {
-			assertFalse(true); 
+			assertFalse(true);
 		}
 
-	} 
-} 
- 
+	}
+}

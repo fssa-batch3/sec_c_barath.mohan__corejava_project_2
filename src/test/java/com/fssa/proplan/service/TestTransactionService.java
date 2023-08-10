@@ -28,11 +28,11 @@ public class TestTransactionService {
 		if (transactionService.addTransaction(transaction)) {
 			Assertions.assertTrue(true, "Income is added successfully!");
 		} else {
-			Assertions.fail("Income is not added. AddIncome() method failed");
+			Assertions.fail("Income is not added. AddIncome() method failed"); 
 		}
  
 	}
-
+ 
 	// Test for adding income with an invalid (negative) amount.
 	@Test
 	void testInvalidAddIncomeAmount() {

@@ -19,7 +19,7 @@ public class TransactionValidator {
 			throw new TransactionException(TransactionError.INVALID_TRANSACTION_TYPE);
 		} 
 		return true;
-	} 
+	}  
 
 	public boolean validateUser(User user) throws TransactionException {
 		if (user == null) {

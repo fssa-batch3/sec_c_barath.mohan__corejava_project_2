@@ -14,7 +14,7 @@ public class ConnectionUtil {
 
 	public static Connection getSchemaConnection() throws DaoException, SQLException {
 
-		String url ;// jdbc:mysql://localhost:3306/your_database_name
+		String url ; 
 		String userName;
 		String passWord ;
 
@@ -22,16 +22,16 @@ public class ConnectionUtil {
 			url = System.getenv("DATABASE_HOST");
 			userName = System.getenv("DATABASE_USERNAME");
 			passWord = System.getenv("DATABASE_PASSWORD");
-		} else {
+		} else { 
 			Dotenv env = Dotenv.load();
 			url = env.get("DATABASE_HOST");
 			userName = env.get("DATABASE_USERNAME");
 			passWord = env.get("DATABASE_PASSWORD");
 		}
 
-		try (Connection con = DriverManager.getConnection(url, userName, passWord)) {
+		try  {
+			Connection con = DriverManager.getConnection(url, userName, passWord);
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			logger.info("Connection successful");
 			return con;
 		} catch (Exception e) {
 			e.printStackTrace();

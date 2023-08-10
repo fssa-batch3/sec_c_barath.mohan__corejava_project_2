@@ -32,7 +32,7 @@ public class TransactionDao {
 
 				psmt.setInt(1, UserDao.getUserIdByEmail(user.getEmailId()));
 				psmt.setString(2, TransactionType.INCOME.getStringValue());
-				psmt.setDate(3, sqlDate);
+				psmt.setDate(3, sqlDate); 
 				psmt.setDouble(4, amount);
 				psmt.setDouble(5, balance);
 				psmt.setString(6, remarks);

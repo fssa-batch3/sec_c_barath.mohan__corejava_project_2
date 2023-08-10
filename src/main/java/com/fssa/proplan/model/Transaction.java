@@ -21,7 +21,7 @@ public class Transaction {
 	public Transaction(User user, TransactionType transactionType, double amount, String remarks) {
 		this.transactionType = transactionType;
 		this.user1 = user;
-		this.amount = amount;
+		this.amount = amount; 
 		this.remarks = remarks;
 	}
 

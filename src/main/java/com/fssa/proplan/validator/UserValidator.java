@@ -27,7 +27,7 @@ public class UserValidator {
 		if (name == null || name.trim() == null || name.trim().equals("")) {
 			throw new UserException(UserValidationErrors.INVALID_NAME_NULL);
 		}
-		String regexPattern = "^[a-zA-Z]{3,20}+$";
+		String regexPattern = "^[a-zA-Z\\s]*$";
 
 		Pattern pattern = Pattern.compile(regexPattern);
 
@@ -81,7 +81,7 @@ public class UserValidator {
 			throw new UserException(UserValidationErrors.INVALID_PROFESSION_NULL);
 		}
 
-		String regexPattern = "^[a-zA-Z]{3,20}+$";
+		String regexPattern = "^[a-zA-Z\\s]*$";
 
 		Pattern pattern = Pattern.compile(regexPattern);
 
