@@ -10,13 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import com.fssa.proplan.exceptions.DaoException;
 
-public class TestProplanDao {
+ class TestProplanDao {
 
 	@Test
-	public void testGetSchemaConnection() throws DaoException, SQLException {
-		String url = "jdbc:mysql://localhost:3306/proplan";
-		String user = "root";
-		String password = "123456";
+	 void testGetSchemaConnection() throws DaoException, SQLException {
 
 		Connection con = ConnectionUtil.getSchemaConnection();
 
@@ -24,9 +21,9 @@ public class TestProplanDao {
 			con.close();
 			assertTrue(true);
 		} else {
-			assertFalse(true);
+			assertFalse(true); 
 		}
 
 	} 
-}
+} 
  

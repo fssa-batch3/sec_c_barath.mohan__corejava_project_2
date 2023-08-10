@@ -19,12 +19,14 @@ public class TransactionService {
 	static Logger logger = new Logger();
 	private TransactionDao transactionDao;
 	private TransactionValidator transactionValidator;
+	private UserDao userDao;
 
 	// Constructor to initialize the TransactionService with the provided
 	// TransactionDao and TransactionValidator.
-	public TransactionService(TransactionDao transactionDao, TransactionValidator transactionValidator) {
+	public TransactionService(TransactionDao transactionDao, TransactionValidator transactionValidator,UserDao userDao) {
 		this.transactionDao = transactionDao;
 		this.transactionValidator = transactionValidator;
+		this.userDao= userDao;
 	}
 
 	/**
@@ -40,10 +42,10 @@ public class TransactionService {
 		transactionValidator.validateTransaction(transaction);
 
 		// Check if the user associated with the transaction exists
-		if (!UserDao.isUserExist(transaction.getUser())) {
+		if (!userDao.isUserExist(transaction.getUser())) {
 			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
 		}
-
+ 
 		// Determine the type of transaction (income or expense)
 		if (transaction.getTransactionType() == TransactionType.INCOME) {
 			// Add the income transaction to the database
@@ -62,7 +64,7 @@ public class TransactionService {
 	// Static method to get the income transaction details for the given user.
 	public List<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
 		// Check if the user is null or doesn't exist in the UserDao.
-		if (user == null || !UserDao.isUserExist(user)) {
+		if (user == null || !userDao.isUserExist(user)) {
 			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
 		}
 
@@ -73,7 +75,7 @@ public class TransactionService {
 	// Static method to get the expense transaction details for the given user.
 	public List<ArrayList<String>> getExpenseTransactionDetails(User user) throws DaoException {
 		// Check if the user is null or doesn't exist in the UserDao.
-		if (user == null || !UserDao.isUserExist(user)) {
+		if (user == null || !userDao.isUserExist(user)) {
 			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
 		}
 

@@ -8,20 +8,20 @@ import org.junit.jupiter.api.Test;
 import com.fssa.proplan.exceptions.UserException;
 import com.fssa.proplan.model.User;
 
-public class TestUserValidator {
+ class TestUserValidator {
 
 	// Test cases for isValidName() method
-	UserValidator userValidator = new UserValidator();
+	UserValidator userValidator = new UserValidator(); 
 
 	@Test
-	public void testIsValidUserValid() throws UserException {
+	 void testIsValidUserValid() throws UserException {
 		User user1 = new User("Barath", "1234567890", "student", "mohan1@gmail.com", "baGra@t1");
 
 		assertTrue(userValidator.isValidUser(user1));
 	}
 
 	@Test
-	public void testIsValidUserInvalid() throws UserException {
+	 void testIsValidUserInvalid() throws UserException {
 
 		User user1 = new User();
 
@@ -36,37 +36,37 @@ public class TestUserValidator {
 	}
 
 	@Test
-	public void testValidName() throws UserException {
+	 void testValidName() throws UserException {
 		// Test if the method accepts a valid name with alphabets and spaces
 		assertTrue(userValidator.isValidName("John Doe"));
 	}
 
 	@Test
-	public void testValidNameWithWhitespace() throws UserException {
+	 void testValidNameWithWhitespace() throws UserException {
 		// Test if the method accepts a valid name with leading and trailing spaces
 		assertTrue(userValidator.isValidName("   Jane Smith   "));
 	}
 
 	@Test
-	public void testInvalidNameWithDigits() {
+	 void testInvalidNameWithDigits() {
 		// Test if the method throws an exception for a name containing digits
 		assertThrows(UserException.class, () -> userValidator.isValidName("John123"));
 	}
 
 	@Test
-	public void testNullName() {
+	 void testNullName() {
 		// Test if the method throws an exception for a null name
 		assertThrows(UserException.class, () -> userValidator.isValidName(null));
 	}
 
 	@Test
-	public void testEmptyNameWithWhitespace() {
+	 void testEmptyNameWithWhitespace() {
 		// Test if the method throws an exception for an empty name with whitespace
 		assertThrows(UserException.class, () -> userValidator.isValidName("    "));
 	}
 
 	@Test
-	public void testEmptyName() {
+	 void testEmptyName() {
 		// Test if the method throws an exception for an empty name
 		assertThrows(UserException.class, () -> userValidator.isValidName(""));
 	}
@@ -74,21 +74,21 @@ public class TestUserValidator {
 	// Test cases for isValidEmail() method
 
 	@Test
-	public void testValidEmail() throws UserException {
+	 void testValidEmail() throws UserException {
 		// Test if the method accepts a valid email address
 		String validEmail = "john.doe@example.com";
 		assertTrue(userValidator.isValidEmail(validEmail));
 	}
 
 	@Test
-	public void testInvalidEmail() {
+	 void testInvalidEmail() {
 		// Test if the method throws an exception for an invalid email address
 		String invalidEmail = "invalid_email";
 		assertThrows(UserException.class, () -> userValidator.isValidEmail(invalidEmail));
 	}
 
 	@Test
-	public void testEmailWithLeadingAndTrailingSpaces() throws UserException {
+	 void testEmailWithLeadingAndTrailingSpaces() throws UserException {
 		// Test if the method accepts a valid email address with leading and trailing
 		// spaces
 		String emailWithSpaces = "  john.doe@example.com  ";
@@ -96,14 +96,14 @@ public class TestUserValidator {
 	}
 
 	@Test
-	public void testNullEmail() {
+	 void testNullEmail() {
 		// Test if the method throws an exception for a null email address
 		String nullEmail = null;
 		assertThrows(UserException.class, () -> userValidator.isValidEmail(nullEmail));
 	}
 
 	@Test
-	public void testEmptyEmail() {
+	 void testEmptyEmail() {
 		// Test if the method throws an exception for an empty email address
 		String emptyEmail = "";
 		assertThrows(UserException.class, () -> userValidator.isValidEmail(emptyEmail));
@@ -112,28 +112,28 @@ public class TestUserValidator {
 	// Test cases for isValidPassword() method
 
 	@Test
-	public void testValidPassword() throws UserException {
+	 void testValidPassword() throws UserException {
 		// Test if the method accepts a valid password with all required criteria met
 		String validPassword = "P@ssw0rd";
 		assertTrue(userValidator.isValidPassword(validPassword));
 	}
 
 	@Test
-	public void testNullPassword() {
+	 void testNullPassword() {
 		// Test if the method throws an exception for a null password
 		String nullPassword = null;
 		assertThrows(UserException.class, () -> userValidator.isValidPassword(nullPassword));
 	}
 
 	@Test
-	public void testEmptyPassword() {
+	 void testEmptyPassword() {
 		// Test if the method throws an exception for an empty password
 		String emptyPassword = "";
 		assertThrows(UserException.class, () -> userValidator.isValidPassword(emptyPassword));
 	}
 
 	@Test
-	public void testWhitespacePassword() {
+	 void testWhitespacePassword() {
 		// Test if the method throws an exception for a password containing only
 		// whitespace
 		String whitespacePassword = "     ";
@@ -141,7 +141,7 @@ public class TestUserValidator {
 	}
 
 	@Test
-	public void testPasswordShorterThanEightCharacters() {
+	 void testPasswordShorterThanEightCharacters() {
 		// Test if the method throws an exception for a password shorter than eight
 		// characters
 		String shortPassword = "Ab1$";
@@ -149,7 +149,7 @@ public class TestUserValidator {
 	}
 
 	@Test
-	public void testPasswordMissingUppercaseLetter() {
+	 void testPasswordMissingUppercaseLetter() {
 		// Test if the method throws an exception for a password without an uppercase
 		// letter
 		String passwordWithoutUppercase = "test@123";
@@ -157,7 +157,7 @@ public class TestUserValidator {
 	}
 
 	@Test
-	public void testPasswordMissingLowercaseLetter() {
+	 void testPasswordMissingLowercaseLetter() {
 		// Test if the method throws an exception for a password without a lowercase
 		// letter
 		String passwordWithoutLowercase = "TEST@123";
@@ -165,14 +165,14 @@ public class TestUserValidator {
 	}
 
 	@Test
-	public void testPasswordMissingDigit() {
+	 void testPasswordMissingDigit() {
 		// Test if the method throws an exception for a password without a digit
 		String passwordWithoutDigit = "Test@Pass";
 		assertThrows(UserException.class, () -> userValidator.isValidPassword(passwordWithoutDigit));
 	}
 
 	@Test
-	public void testPasswordMissingSpecialCharacter() {
+	 void testPasswordMissingSpecialCharacter() {
 		// Test if the method throws an exception for a password without a special
 		// character
 		String passwordWithoutSpecialChar = "Test1234";
@@ -182,14 +182,14 @@ public class TestUserValidator {
 	// Test cases for isValidProfession() method
 
 	@Test
-	public void testValidProfession() throws UserException {
+	 void testValidProfession() throws UserException {
 		// Test if the method accepts a valid profession with alphabets and spaces
 		String validProfession = "Software Developer";
 		assertTrue(userValidator.isValidProfession(validProfession));
 	}
 
 	@Test
-	public void testValidProfessionWithWhitespace() throws UserException {
+	 void testValidProfessionWithWhitespace() throws UserException {
 		// Test if the method accepts a valid profession with leading and trailing
 		// spaces
 		String validProfession = "   Data Analyst   ";
@@ -197,28 +197,28 @@ public class TestUserValidator {
 	}
 
 	@Test
-	public void testInvalidProfessionWithNumbers() {
+	 void testInvalidProfessionWithNumbers() {
 		// Test if the method throws an exception for a profession containing numbers
 		String invalidProfession = "Web Developer 123";
 		assertThrows(UserException.class, () -> userValidator.isValidProfession(invalidProfession));
 	}
 
 	@Test
-	public void testEmptyProfession() {
+	 void testEmptyProfession() {
 		// Test if the method throws an exception for an empty profession
 		String emptyProfession = "";
 		assertThrows(UserException.class, () -> userValidator.isValidProfession(emptyProfession));
 	}
 
 	@Test
-	public void testNullProfession() {
+	 void testNullProfession() {
 		// Test if the method throws an exception for a null profession
 		String nullProfession = null;
 		assertThrows(UserException.class, () -> userValidator.isValidProfession(nullProfession));
 	}
 
 	@Test
-	public void testProfessionWithOnlyDigits() {
+	 void testProfessionWithOnlyDigits() {
 		// Test if the method throws an exception for a profession containing only
 		// digits
 		String professionWithDigits = "12345";

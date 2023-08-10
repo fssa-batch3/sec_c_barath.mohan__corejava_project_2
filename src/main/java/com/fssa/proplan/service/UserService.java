@@ -39,7 +39,7 @@ public class UserService {
 			return true;
 		}
 		
-		return false;
+		return false; 
 	}
 
 	// Clears all user-related data from the database, including balance and
@@ -60,7 +60,7 @@ public class UserService {
 	// Method to get all user email addresses from the DAO
 	public List<String> getAllUserEmails() throws DaoException {
 
-
+ 
 		return  userDao.getAllUserEmails();
 	}
 
@@ -77,21 +77,5 @@ public class UserService {
 		return false;
 	} 
 
-	// Method to delete a user based on the provided user object
-//	public boolean deleteUser(User user) throws DaoException, UserException {
-//
-//		// Validate the user object using the UserValidator
-//		if (userValidator.isValidUser(user)) {
-//
-//			// Check if the user exists in the DAO
-//			if (userDao.isUserExist(user)) {
-//
-//				// If the user exists, delete the user using the UserDao
-//				userDao.deleteUser(user);
-//			}
-//		}
-//
-//		return false;
-//	}
 
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.fssa.proplan.dao.TransactionDao;
+import com.fssa.proplan.dao.UserDao;
 import com.fssa.proplan.enumclass.TransactionType;
 import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.exceptions.TransactionException;
@@ -16,7 +17,7 @@ import com.fssa.proplan.validator.TransactionValidator;
 
 public class TestTransactionService {
 
-	TransactionService transactionService = new TransactionService(new TransactionDao(), new TransactionValidator());
+	TransactionService transactionService = new TransactionService(new TransactionDao(), new TransactionValidator(), new UserDao());
 	User user = new User("Mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
 
 	@Test
@@ -90,7 +91,7 @@ public class TestTransactionService {
 			Assertions.assertTrue(true, "Income Transaction Details is fetched successfully!");
 		} else {
 			// If the details cannot be fetched, the test should fail with an error message
-			Assertions.fail("Income Transaction Details is fetched. getIncomeTransactionDetails() method failed");
+			Assertions.fail("Income Transaction Details is f etched. getIncomeTransactionDetails() method failed");
 		}
 		;
 

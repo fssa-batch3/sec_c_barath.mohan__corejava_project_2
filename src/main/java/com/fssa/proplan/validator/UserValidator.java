@@ -27,13 +27,13 @@ public class UserValidator {
 		if (name == null || name.trim() == null || name.trim().equals("")) {
 			throw new UserException(UserValidationErrors.INVALID_NAME_NULL);
 		}
-		String regexPattern = "^[^0-9]*$";
+		String regexPattern = "^[a-zA-Z]{3,20}+$";
 
 		Pattern pattern = Pattern.compile(regexPattern);
 
 		Matcher matcher = pattern.matcher(name);
 
-		if (!matcher.matches()) {
+		if (!matcher.matches()) { 
 			throw new UserException(UserValidationErrors.INVALID_NAME);
 		}
 		return true;
@@ -41,22 +41,23 @@ public class UserValidator {
 
 	public  boolean isValidEmail(String email) throws UserException {
 
-		if (email == null || email.trim() == null || email.trim() == "") {
+		if (email == null || email.trim() == null || email.trim().equals("")) {
 			throw new UserException(UserValidationErrors.INVALID_EMAIL_NULL);
-		}
-		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+		}//		storing the regular expression pattern to validate the given user input
+//		this pattern checks for '@' symbol and checks for '.' at end of the string
+			String emailRegex = "^.*@.*\\..*$";
 
 		Pattern pattern = Pattern.compile(emailRegex);
 		Matcher matcher = pattern.matcher(email.trim());
 
 		if (!matcher.matches()) {
 			throw new UserException(UserValidationErrors.INVALID_EMAIL);
-		}
+		} 
 		return true;
 	}
 
 	public  boolean isValidPassword(String password) throws UserException {
-		if (password == null || password.trim() == null || password.trim() == "") {
+		if (password == null || password.trim() == null || password.trim().equals("")) {
 			throw new UserException(UserValidationErrors.INVALID_PASSWORD_NULL);
 		}
 		// At least one special character (e.g., !@#$%^&*()-_=+[]{}|;:'",.<>?/)
@@ -76,11 +77,11 @@ public class UserValidator {
 	}
 
 	public  boolean isValidProfession(String profession) throws UserException {
-		if (profession == null || profession.trim() == null || profession.trim() == "") {
+		if (profession == null || profession.trim() == null || profession.trim().equals("")) {
 			throw new UserException(UserValidationErrors.INVALID_PROFESSION_NULL);
 		}
 
-		String regexPattern = "^[^0-9]*$";
+		String regexPattern = "^[a-zA-Z]{3,20}+$";
 
 		Pattern pattern = Pattern.compile(regexPattern);
 
@@ -94,7 +95,7 @@ public class UserValidator {
 	}
 
 	public  boolean isValidPhoneNumber(String phNo) throws UserException {
-		if (phNo == null || phNo.trim() == null || phNo.trim() == "") {
+		if (phNo == null || phNo.trim() == null || phNo.trim().equals("")) {
 			throw new UserException(UserValidationErrors.INVALID_PHNO_NULL);
 		}
 		String regexPattern = "^[0-9]{10}$";

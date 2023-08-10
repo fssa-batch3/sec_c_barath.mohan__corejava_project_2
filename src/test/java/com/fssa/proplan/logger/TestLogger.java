@@ -2,10 +2,10 @@ package com.fssa.proplan.logger;
 
 import org.junit.jupiter.api.Test;
 
-public class TestLogger {
+ class TestLogger {
 
 	@Test
-	public void TestInfo() {
+	 void TestInfo() {
 
 		String s = "barath";
 
@@ -15,7 +15,7 @@ public class TestLogger {
 	}
 	
 	@Test
-	public void TestDebug() {
+	 void TestDebug() {
 
 		String s = "barath";
 

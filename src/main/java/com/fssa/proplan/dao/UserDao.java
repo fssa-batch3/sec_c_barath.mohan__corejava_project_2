@@ -17,7 +17,7 @@ public class UserDao {
 	static Logger logger = new Logger();
 
 	// Adds a new user to the database based on the provided User object.
-	public static boolean addUser(User user) throws DaoException {
+	public  boolean addUser(User user) throws DaoException {
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 			// SQL query to insert a new user into the 'user' table.
 			String query = "INSERT INTO user(name,phone_num,profession,email_id,password,active) "
@@ -53,7 +53,7 @@ public class UserDao {
 
 	// Retrieves all user emails from the 'user' table and returns them as an
 	// ArrayList of Strings.
-	public static List<String> getAllUserEmails() throws DaoException {
+	public List<String> getAllUserEmails() throws DaoException {
 
 		// ArrayList to store the user email addresses.
 		List<String> userNames = new ArrayList<>();
@@ -109,7 +109,7 @@ public class UserDao {
 	}
 
 	// Checks if a user with the provided details exists in the 'user' table.
-	public static boolean isUserExist(User user) throws DaoException {
+	public  boolean isUserExist(User user) throws DaoException {
 		// Retrieves all user email addresses from the 'user' table.
 		List<String> userEmails = getAllUserEmails();
 
