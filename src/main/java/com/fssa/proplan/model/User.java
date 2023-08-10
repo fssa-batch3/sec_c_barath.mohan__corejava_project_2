@@ -1,17 +1,8 @@
 package com.fssa.proplan.model;
 
-import java.util.ArrayList;
 
-import com.fssa.proplan.dao.TransactionDao;
-import com.fssa.proplan.dao.UserDao;
-import com.fssa.proplan.exceptions.DaoException;
-import com.fssa.proplan.exceptions.TransactionException;
-import com.fssa.proplan.exceptions.UserException;
 import com.fssa.proplan.logger.Logger;
-import com.fssa.proplan.service.TransactionService;
-import com.fssa.proplan.service.UserService;
-import com.fssa.proplan.validator.TransactionValidator;
-import com.fssa.proplan.validator.UserValidator;
+
 
 public class User {
 	static Logger logger = new Logger();
@@ -83,31 +74,6 @@ public class User {
 		logger.info("New Account is created successfully");
 	}
 
-	public static void main(String[] args) throws DaoException, UserException, TransactionException {
 
-		User user1 = new User("barath", "1234567890", "student", "barath123@gmail.com", "baGra@t1");
-//
-		UserService userService = new UserService(new UserDao(), new UserValidator());
-
-//		userService.addUser(user1);
-
-//		ArrayList<String> ar = UserDao.getAllUserEmails();
-
-//		System.out.println(ar); 
-
-		TransactionService TransactionService = new TransactionService(new TransactionDao(),
-				new TransactionValidator());
-
-//		System.out.println(TransactionService.getIncomeTransactionDetails(user1));
-//		System.out.println(TransactionService.getExpenseTransactionDetails(user1));
-
-//		UserDao.deleteUser(user1);
-		TransactionService.addIncome(user1, 12000, "Salary");
-//
-//		TransactionService.addExpense(user1, 10000, "Entertainment");
-
-//		userService.clearAll(); 
-
-	}
 
 }

@@ -1,6 +1,7 @@
 package com.fssa.proplan.service;
 
-import java.util.ArrayList;
+import java.util.List;
+
 import com.fssa.proplan.dao.BalanceDao;
 import com.fssa.proplan.dao.TransactionDao;
 import com.fssa.proplan.dao.UserDao;
@@ -19,9 +20,9 @@ public class UserService {
 	public UserService(UserDao userDao, UserValidator userValidator) {
 		this.userDao = userDao;
 		this.userValidator = userValidator;
-	}
+	} 
 	
-
+ 
 
 	// Adds a new user to the database if the user is valid and doesn't already
 	// exist.
@@ -57,12 +58,10 @@ public class UserService {
 	}
 
 	// Method to get all user email addresses from the DAO
-	public ArrayList<String> getAllUserEmails() throws DaoException {
+	public List<String> getAllUserEmails() throws DaoException {
 
-		// ArrayList to store the user email addresses.
-		ArrayList<String> userNames = userDao.getAllUserEmails();
 
-		return userNames;
+		return  userDao.getAllUserEmails();
 	}
 
 	// Method to check if a user exists based on the provided user object

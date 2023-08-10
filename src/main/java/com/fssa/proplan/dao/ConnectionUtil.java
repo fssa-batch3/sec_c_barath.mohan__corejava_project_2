@@ -2,29 +2,32 @@ package com.fssa.proplan.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.logger.Logger;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class ProplanDao {
+public class ConnectionUtil {
 	static Logger logger = new Logger();
 
-	public static Connection getSchemaConnection() throws DaoException {
+	public static Connection getSchemaConnection() throws DaoException, SQLException  {
 		Connection con = null;
-
-		String url, userName, passWord;
+//
+		String url="jdbc:mysql://localhost:3306/proplan";//jdbc:mysql://localhost:3306/your_database_name
+		String userName="root";
+		String passWord="123456";
 
 		if (System.getenv("CI") != null) {
 			url = System.getenv("DATABASE_HOST");
 			userName = System.getenv("DATABASE_USERNAME");
 			passWord = System.getenv("DATABASE_PASSWORD");
-		} else {
+		} else { 
 			Dotenv env = Dotenv.load();
 			url = env.get("DATABASE_HOST");
 			userName = env.get("DATABASE_USERNAME");
-			passWord = env.get("DATABASE_PASSWORD");
+			passWord = env.get("DATABASE_PASSWORD"); 
 		}
 
 		try {
@@ -33,17 +36,25 @@ public class ProplanDao {
 			logger.info("Connection successful");
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("Unable to connect to the database");
+			throw new DaoException("Unable to connect to the database");
 		}
+//		finally {
+//			if(con!=null) {
+//				con.close();
+//			}
+//		}
+		
 		return con;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 
 		try {
-			Connection conn = getSchemaConnection();
+			getSchemaConnection();
+			System.out.println("connected successfully");
+			
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}

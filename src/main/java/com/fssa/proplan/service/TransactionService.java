@@ -1,12 +1,16 @@
 package com.fssa.proplan.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fssa.proplan.dao.TransactionDao;
 import com.fssa.proplan.dao.UserDao;
+import com.fssa.proplan.enumclass.TransactionType;
+import com.fssa.proplan.errormessages.UserValidationErrors;
 import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.exceptions.TransactionException;
 import com.fssa.proplan.logger.Logger;
+import com.fssa.proplan.model.Transaction;
 import com.fssa.proplan.model.User;
 import com.fssa.proplan.validator.TransactionValidator;
 
@@ -23,54 +27,43 @@ public class TransactionService {
 		this.transactionValidator = transactionValidator;
 	}
 
-	// Method to add income for the given user with the specified amount and
-	// remarks.
-	public boolean addIncome(User user, double amount, String remarks) throws DaoException, TransactionException {
-		// Check if the user is null or doesn't exist in the UserDao.
-		if (user == null || !UserDao.isUserExist(user)) {
-			throw new DaoException("The user doesn't exist");
+	/**
+	 * Adds a new transaction to the system.
+	 *
+	 * @param transaction The transaction to be added.
+	 * @return True if the transaction was added successfully, otherwise false.
+	 * @throws DaoException         If there is an issue with the data access layer.
+	 * @throws TransactionException If there is an issue with the transaction data.
+	 */
+	public boolean addTransaction(Transaction transaction) throws DaoException, TransactionException {
+		// Validate the transaction before proceeding
+		transactionValidator.validateTransaction(transaction);
+
+		// Check if the user associated with the transaction exists
+		if (!UserDao.isUserExist(transaction.getUser())) {
+			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
 		}
 
-		// Validate the amount of income using the TransactionValidator.
-		if (transactionValidator.addIncome(amount)) {
-			// If the amount is valid, add the income to the TransactionDao and print
-			// success message.
-			transactionDao.addIncome(user, amount, remarks); 
-			logger.info("Income has been added successfully");
-			return true;
+		// Determine the type of transaction (income or expense)
+		if (transaction.getTransactionType() == TransactionType.INCOME) {
+			// Add the income transaction to the database
+			transactionDao.addIncome(transaction.getUser(), transaction.getAmount(), transaction.getRemarks());
+			logger.debug("Income is added successfully");
+		} else {
+			// Add the expense transaction to the database
+			transactionDao.addExpense(transaction.getUser(), transaction.getAmount(), transaction.getRemarks());
+			logger.debug("Expense is added successfully");
 		}
-		// If the amount is not valid, return false.
-		return false; 
+
+		// Return true to indicate successful transaction addition
+		return true;
 	}
-
-	// Method to add an expense for the given user with the specified amount and
-	// remarks.
-	public boolean addExpense(User user, double amount, String remarks) throws DaoException, TransactionException {
-		// Check if the user is null or doesn't exist in the UserDao.
-		if (user == null || !UserDao.isUserExist(user)) {
-			throw new DaoException("The user doesn't exist");
-		}
-
-		// Validate the amount of expense using the TransactionValidator.
-		if (transactionValidator.addExpense(user, amount)) {
-			// If the amount is valid, add the expense to the TransactionDao and print
-			// success message.
-			transactionDao.addExpense(user, amount, remarks);
-			logger.info("Expense has been added successfully");
-			return true;
-		}
-
-		// If the amount is not valid, return false.
-		return false;
-	}
-	
-	
 
 	// Static method to get the income transaction details for the given user.
-	public static ArrayList<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
+	public List<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
 		// Check if the user is null or doesn't exist in the UserDao.
 		if (user == null || !UserDao.isUserExist(user)) {
-			throw new DaoException("The user doesn't exist");
+			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
 		}
 
 		// Retrieve the income transaction details from the TransactionDao.
@@ -78,16 +71,14 @@ public class TransactionService {
 	}
 
 	// Static method to get the expense transaction details for the given user.
-	public static ArrayList<ArrayList<String>> getExpenseTransactionDetails(User user) throws DaoException {
+	public List<ArrayList<String>> getExpenseTransactionDetails(User user) throws DaoException {
 		// Check if the user is null or doesn't exist in the UserDao.
 		if (user == null || !UserDao.isUserExist(user)) {
-			throw new DaoException("The user doesn't exist");
+			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
 		}
 
 		// Retrieve the expense transaction details from the TransactionDao.
 		return TransactionDao.getExpenseTransactionDetails(user);
 	}
-	
-	
 
 }

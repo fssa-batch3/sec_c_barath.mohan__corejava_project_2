@@ -3,6 +3,7 @@ package com.fssa.proplan.errormessages;
 public interface UserValidationErrors {
 	public static final String INVALID_USER_NULL = "User should not be null";
 	public static final String INVALID_NAME_NULL = "Name should not be null";
+	public static final String USER_NOT_EXISTS = "User doesn't exists";
 	public static final String INVALID_NAME = "Name should not contain numbers";
 	public static final String INVALID_EMAIL_NULL = "Email should not be null";
 	public static final String INVALID_EMAIL = "Enter valid Email id format";

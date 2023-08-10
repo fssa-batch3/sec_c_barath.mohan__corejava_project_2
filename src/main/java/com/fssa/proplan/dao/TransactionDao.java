@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fssa.proplan.enumclass.TransactionType;
 import com.fssa.proplan.exceptions.DaoException;
@@ -14,12 +15,13 @@ import com.fssa.proplan.model.User;
 
 public class TransactionDao {
 	static Logger logger = new Logger();
+
 	// Adds income transaction for the given user.
 	public boolean addIncome(User user, double amount, String remarks) throws DaoException {
-		try (Connection con = ProplanDao.getSchemaConnection()) {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 			String query = "INSERT INTO transactions(user_id,transaction_type,date,amount,balance,remarks) "
 					+ "VALUES(?,?,?,?,?,?)";
-
+  
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
 				java.util.Date utilDate = new java.util.Date();
@@ -38,11 +40,8 @@ public class TransactionDao {
 				int rowAffected = psmt.executeUpdate();
 
 				// Update the user's balance after adding income.
-				try {
-					BalanceDao.updateUserBalance(user, balance);
-				} catch (DaoException ex) {
-					throw new DaoException(ex.getMessage());
-				}
+
+				BalanceDao.updateUserBalance(user, balance);
 
 				logger.info(rowAffected + " row/rows affected ");
 			}
@@ -55,7 +54,7 @@ public class TransactionDao {
 
 	public boolean addExpense(User user, double amount, String remarks) throws DaoException {
 
-		try (Connection con = ProplanDao.getSchemaConnection()) {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 			String query = "INSERT INTO transactions(user_id,transaction_type,date,amount,balance,remarks) "
 					+ "VALUES(?,?,?,?,?,?)";
 
@@ -73,11 +72,8 @@ public class TransactionDao {
 				psmt.setString(6, remarks);
 
 				int rowAffected = psmt.executeUpdate();
-				try {
-					BalanceDao.updateUserBalance(user, balance);
-				} catch (DaoException ex) {
-					throw new DaoException(ex.getMessage());
-				}
+
+				BalanceDao.updateUserBalance(user, balance);
 
 				logger.info(rowAffected + "row/rows affected ");
 			}
@@ -90,7 +86,7 @@ public class TransactionDao {
 
 	public static boolean clearAllTransactionDetails() throws DaoException {
 
-		try (Connection con = ProplanDao.getSchemaConnection()) {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 			String query = "TRUNCATE TABLE transactions";
 
 			try (Statement smt = con.createStatement()) {
@@ -112,8 +108,8 @@ public class TransactionDao {
 
 	// Retrieves the transaction details (income/expense) for the given user and
 	// type.
-	public static ArrayList<ArrayList<String>> getTransactionDetails(User user, String type) throws DaoException {
-		try (Connection con = ProplanDao.getSchemaConnection()) {
+	public static List<ArrayList<String>> getTransactionDetails(User user, String type) throws DaoException {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 
 			String query = "SELECT transaction_type,date,amount,remarks FROM transactions where user_id=? AND transaction_type=?";
 
@@ -126,7 +122,7 @@ public class TransactionDao {
 				psmt.setString(2, type);
 				try (ResultSet rs = psmt.executeQuery()) {
 
-					ArrayList<ArrayList<String>> transactionDetails = new ArrayList<ArrayList<String>>();
+					List<ArrayList<String>> transactionDetails = new ArrayList<>();
 
 					// Fetch the transaction details from the result set and add to the list.
 					while (rs.next()) {
@@ -148,16 +144,14 @@ public class TransactionDao {
 		}
 
 	}
-	
-	
 
-	public static ArrayList<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
+	public static List<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
 		// Retrieves the income transaction details for the given user.
 
 		return getTransactionDetails(user, TransactionType.INCOME.getStringValue());
-	}
+	} 
 
-	public static ArrayList<ArrayList<String>> getExpenseTransactionDetails(User user) throws DaoException {
+	public static List<ArrayList<String>> getExpenseTransactionDetails(User user) throws DaoException {
 		// Retrieves the expense transaction details for the given user.
 		return getTransactionDetails(user, TransactionType.EXPENSE.getStringValue());
 

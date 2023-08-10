@@ -1,40 +1,64 @@
 package com.fssa.proplan.validator;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.sql.SQLException;
-
 import org.junit.jupiter.api.Test;
-
-import com.fssa.proplan.errormessages.TransactionError;
+import com.fssa.proplan.enumclass.TransactionType;
 import com.fssa.proplan.exceptions.TransactionException;
+import com.fssa.proplan.model.Transaction;
+import com.fssa.proplan.model.User;
 
-public class TestTransactionValidator {
+class TestTransactionValidator {
 
 	@Test
-	public void testValidIncome() throws TransactionException {
-		TransactionValidator validator = new TransactionValidator();
-		double validAmount = 1000.0;
-		boolean result = validator.addIncome(validAmount);
-		assertTrue(result);
+	void testValidateTransactionTypeValid() throws TransactionException {
+		TransactionValidator validation = new TransactionValidator();
+		assertTrue(validation.validateTransactionType(TransactionType.INCOME));
 	}
 
 	@Test
-	public void testInvalidIncomeAmount() {
-		TransactionValidator validator = new TransactionValidator();
-		double invalidAmount = -100.0; // Invalid amount (less than 1)
-		assertThrows(TransactionException.class, () -> validator.addIncome(invalidAmount));
+	void testValidateTransactionTypeInvalid() {
+		TransactionValidator validation = new TransactionValidator();
+		assertThrows(TransactionException.class, () -> validation.validateTransactionType(null));
 	}
 
 	@Test
-	public void testInvalidIncomeAmountExceptionMessage() {
-		TransactionValidator validator = new TransactionValidator();
-		double invalidAmount = 0.0; // Invalid amount (less than 1)
-		TransactionException exception = assertThrows(TransactionException.class,
-				() -> validator.addIncome(invalidAmount));
-		assertEquals(TransactionError.INVALID_AMOUNT_ZERO, exception.getMessage());
+	void testValidateUserValid() throws TransactionException {
+		TransactionValidator validation = new TransactionValidator();
+		User validUser = new User();
+		assertTrue(validation.validateUser(validUser));
+	}
+
+	@Test
+	void testValidateUserInvalid() {
+		TransactionValidator validation = new TransactionValidator();
+		assertThrows(TransactionException.class, () -> validation.validateUser(null));
+	}
+
+	@Test 
+	void testValidateAmountValid() throws TransactionException {
+		TransactionValidator validation = new TransactionValidator();
+		assertTrue(validation.validateAmount(100.0));
+	}
+ 
+	@Test
+	void testValidateAmountInvalid() {
+		TransactionValidator validation = new TransactionValidator();
+		assertThrows(TransactionException.class, () -> validation.validateAmount(-50.0));
+	}
+
+	@Test
+	void testValidateTransactionValid() throws TransactionException {
+		TransactionValidator validation = new TransactionValidator();
+		Transaction validTransaction = new Transaction(new User(), TransactionType.EXPENSE, 100.0,"testing");
+		assertTrue(validation.validateTransaction(validTransaction));
+	}
+
+	@Test
+	void testValidateTransactionInvalid() {
+		TransactionValidator validation = new TransactionValidator();
+		Transaction invalidTransaction = new Transaction(null, null, -50.0,"testing");
+		assertThrows(TransactionException.class, () -> validation.validateTransaction(invalidTransaction));
 	}
 
 }

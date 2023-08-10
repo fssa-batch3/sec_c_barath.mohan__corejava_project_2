@@ -10,13 +10,13 @@ import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.logger.Logger;
 import com.fssa.proplan.model.User;
 
-public class BalanceDao {
+public class BalanceDao { 
 	
 	static Logger logger = new Logger();
 	// Method to create a new user balance with initial value 0
 	public static boolean createNewUserBalance(User user) throws DaoException {
-
-		try (Connection con = ProplanDao.getSchemaConnection()) {
+ 
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 
 			// SQL query to insert a new record with user_id and initial balance of 0
 			String query = "INSERT INTO balance(user_id,balance) VALUES(?,0)";
@@ -35,13 +35,13 @@ public class BalanceDao {
 		} catch (SQLException ex) {
 			throw new DaoException(ex.getMessage());
 		}
-		return true;
+		return true; 
 	}
 
 	// Method to update the balance for a specific user
 	public static boolean updateUserBalance(User user, double balance) throws DaoException {
 
-		try (Connection con = ProplanDao.getSchemaConnection()) {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 
 			// SQL query to update the balance of a user based on their user_id
 			String query = "UPDATE balance SET balance = ? WHERE user_id = ?";
@@ -68,7 +68,7 @@ public class BalanceDao {
 	// Method to get the balance for a specific user
 	public static double getBalanceByUser(User user) throws DaoException {
 
-		try (Connection con = ProplanDao.getSchemaConnection()) {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 			double balance = 0;
 
 			// SQL query to fetch the balance for a user based on their user_id
@@ -102,7 +102,7 @@ public class BalanceDao {
 	// Method to clear all balance details in the 'balance' table
 	public static boolean clearAllBalanceDetails() throws DaoException {
 
-		try (Connection con = ProplanDao.getSchemaConnection()) {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 			// SQL query to truncate (delete all records) the 'balance' table
 			String query = "TRUNCATE TABLE balance";
 

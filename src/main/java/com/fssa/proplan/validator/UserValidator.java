@@ -9,7 +9,7 @@ import com.fssa.proplan.model.User;
 
 public class UserValidator {
 
-	public static boolean isValidUser(User user) throws UserException {
+	public   boolean isValidUser(User user) throws UserException {
 		if (user == null) {
 			throw new UserException(UserValidationErrors.INVALID_USER_NULL);
 		}
@@ -20,9 +20,9 @@ public class UserValidator {
 		isValidPhoneNumber(user.getPhoneNumber());
 
 		return true;
-	}
+	} 
 
-	public static boolean isValidName(String name) throws UserException {
+	public  boolean isValidName(String name) throws UserException {
 
 		if (name == null || name.trim() == null || name.trim().equals("")) {
 			throw new UserException(UserValidationErrors.INVALID_NAME_NULL);
@@ -39,7 +39,7 @@ public class UserValidator {
 		return true;
 	}
 
-	public static boolean isValidEmail(String email) throws UserException {
+	public  boolean isValidEmail(String email) throws UserException {
 
 		if (email == null || email.trim() == null || email.trim() == "") {
 			throw new UserException(UserValidationErrors.INVALID_EMAIL_NULL);
@@ -55,7 +55,7 @@ public class UserValidator {
 		return true;
 	}
 
-	public static boolean isValidPassword(String password) throws UserException {
+	public  boolean isValidPassword(String password) throws UserException {
 		if (password == null || password.trim() == null || password.trim() == "") {
 			throw new UserException(UserValidationErrors.INVALID_PASSWORD_NULL);
 		}
@@ -75,7 +75,7 @@ public class UserValidator {
 		return true;
 	}
 
-	public static boolean isValidProfession(String profession) throws UserException {
+	public  boolean isValidProfession(String profession) throws UserException {
 		if (profession == null || profession.trim() == null || profession.trim() == "") {
 			throw new UserException(UserValidationErrors.INVALID_PROFESSION_NULL);
 		}
@@ -93,7 +93,7 @@ public class UserValidator {
 
 	}
 
-	public static boolean isValidPhoneNumber(String phNo) throws UserException {
+	public  boolean isValidPhoneNumber(String phNo) throws UserException {
 		if (phNo == null || phNo.trim() == null || phNo.trim() == "") {
 			throw new UserException(UserValidationErrors.INVALID_PHNO_NULL);
 		}

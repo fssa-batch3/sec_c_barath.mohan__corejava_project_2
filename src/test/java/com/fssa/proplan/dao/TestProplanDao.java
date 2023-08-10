@@ -18,9 +18,9 @@ public class TestProplanDao {
 		String user = "root";
 		String password = "123456";
 
-		Connection con = ProplanDao.getSchemaConnection();
+		Connection con = ConnectionUtil.getSchemaConnection();
 
-		if (con != null) {
+		if (con != null) { 
 			con.close();
 			assertTrue(true);
 		} else {
@@ -29,3 +29,4 @@ public class TestProplanDao {
 
 	} 
 }
+ 
