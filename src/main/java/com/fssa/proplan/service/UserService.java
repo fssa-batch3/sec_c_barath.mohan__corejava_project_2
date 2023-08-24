@@ -75,7 +75,16 @@ public class UserService {
 		}
 
 		return false;
-	} 
+	}
+	
+	
+	public User isValidLogin(String email, String password) throws DaoException, UserException {
 
+		if(userValidator.isValidEmail(email)&&userValidator.isValidEmail(email)) {
+			
+		}
+
+		return null;
+	}
 
 }

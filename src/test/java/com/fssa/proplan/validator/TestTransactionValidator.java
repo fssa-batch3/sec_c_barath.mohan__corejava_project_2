@@ -40,6 +40,7 @@ class TestTransactionValidator {
 		TransactionValidator validation = new TransactionValidator();
 		assertTrue(validation.validateAmount(100.0));
 	}
+	
  
 	@Test
 	void testValidateAmountInvalid() {
@@ -47,12 +48,14 @@ class TestTransactionValidator {
 		assertThrows(TransactionException.class, () -> validation.validateAmount(-50.0));
 	}
 
+	
 	@Test
 	void testValidateTransactionValid() throws TransactionException {
 		TransactionValidator validation = new TransactionValidator();
 		Transaction validTransaction = new Transaction(new User(), TransactionType.EXPENSE, 100.0,"testing");
 		assertTrue(validation.validateTransaction(validTransaction));
 	}
+	
 
 	@Test
 	void testValidateTransactionInvalid() {

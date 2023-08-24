@@ -23,10 +23,11 @@ public class TransactionService {
 
 	// Constructor to initialize the TransactionService with the provided
 	// TransactionDao and TransactionValidator.
-	public TransactionService(TransactionDao transactionDao, TransactionValidator transactionValidator,UserDao userDao) {
+	public TransactionService(TransactionDao transactionDao, TransactionValidator transactionValidator,
+			UserDao userDao) {
 		this.transactionDao = transactionDao;
 		this.transactionValidator = transactionValidator;
-		this.userDao= userDao;
+		this.userDao = userDao;
 	}
 
 	/**
@@ -45,8 +46,8 @@ public class TransactionService {
 		if (!userDao.isUserExist(transaction.getUser())) {
 			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
 		}
-  
-		// Determine the type of transaction (income or expense) 
+
+		// Determine the type of transaction (income or expense)
 		if (transaction.getTransactionType() == TransactionType.INCOME) {
 			// Add the income transaction to the database
 			transactionDao.addIncome(transaction.getUser(), transaction.getAmount(), transaction.getRemarks());

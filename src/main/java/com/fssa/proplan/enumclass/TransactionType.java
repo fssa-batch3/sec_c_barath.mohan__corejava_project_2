@@ -1,6 +1,6 @@
 package com.fssa.proplan.enumclass;
 
-public enum TransactionType {
+public enum TransactionType { 
 	INCOME("Income"), EXPENSE("Expense");
 
 	String value;
@@ -14,3 +14,4 @@ public enum TransactionType {
 	}
 
 }
+

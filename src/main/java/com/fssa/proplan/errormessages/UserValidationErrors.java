@@ -1,5 +1,6 @@
 package com.fssa.proplan.errormessages;
 
+
 public interface UserValidationErrors {
 	public static final String INVALID_USER_NULL = "User should not be null";
 	public static final String INVALID_NAME_NULL = "Name should not be null";

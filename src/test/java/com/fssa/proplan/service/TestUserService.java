@@ -18,7 +18,7 @@ class TestUserService {
 	@Test
 	void testAddUser() throws DaoException, UserException {
 
-		User user1 = new User("Barath", "1234567890", "student", "mohan181@gmail.com", "baGra@t1");
+		User user1 = new User("Barath", "1234567890", "student", "mohan1821@gmail.com", "baGra@t1");
 
 		if (userService.addUser(user1)) {
 			Assertions.assertTrue(true, "User is added successfully!");
