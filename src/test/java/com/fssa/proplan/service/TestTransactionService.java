@@ -30,7 +30,7 @@ public class TestTransactionService {
 		} else {
 			Assertions.fail("Income is not added. AddIncome() method failed"); 
 		}
- 
+
 	}
  
 	// Test for adding income with an invalid (negative) amount.
