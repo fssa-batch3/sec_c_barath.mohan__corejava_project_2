@@ -18,12 +18,12 @@ import com.fssa.proplan.validator.TransactionValidator;
 public class TestTransactionService {
 
 	TransactionService transactionService = new TransactionService(new TransactionDao(), new TransactionValidator(), new UserDao());
-	User user = new User("Mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
+	User user = new User("Dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
 
 	@Test
 	void testValidAddIncome() throws DaoException, TransactionException {
  
-		Transaction transaction = new Transaction(user, TransactionType.INCOME, 1000, "Testing ");
+		Transaction transaction = new Transaction(user, TransactionType.INCOME, 10000, "Salary");
 		// If the income is not added, the test should fail with an error message.
 		if (transactionService.addTransaction(transaction)) {
 			Assertions.assertTrue(true, "Income is added successfully!");
@@ -41,6 +41,9 @@ public class TestTransactionService {
 		Transaction transaction = new Transaction(user, TransactionType.INCOME, -1, "Testing ");
 
 		// It should assert that IllegalArgumentException is thrown.
+		
+		//TODO: assert using the error msg.
+		
 		Assertions.assertThrows(TransactionException.class, () -> transactionService.addTransaction(transaction));
 
 	}
@@ -51,7 +54,7 @@ public class TestTransactionService {
 	void testValidAddExpense() throws DaoException, TransactionException {
 
 //		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
-		Transaction transaction = new Transaction(user, TransactionType.EXPENSE, 500, "Testing ");
+		Transaction transaction = new Transaction(user, TransactionType.EXPENSE, 5000, "Shopping");
 
 		if (transactionService.addTransaction(transaction)) {
 			// It should verify that the expense is successfully added and return true.
@@ -85,7 +88,7 @@ public class TestTransactionService {
 		// It should verify that the details are fetched successfully and return true.
 //		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
 
-		List<ArrayList<String>> details = transactionService.getIncomeTransactionDetails(user);
+		List<Transaction> details = transactionService.getIncomeTransactionDetails(user);
 
 		if (details != null) {
 			Assertions.assertTrue(true, "Income Transaction Details is fetched successfully!");
@@ -98,21 +101,44 @@ public class TestTransactionService {
 	}
 
 	// Test for retrieving valid expense transaction details for the user.
+	
 	@Test
 	void testValidGetExpenseTransactionDetails() throws DaoException {
 
 		// It should verify that the details are fetched successfully and return true.
 //		User user = new User("mohan", "1234567890", "student", "barath@gmail.com", "baGra@t1");
-		List<ArrayList<String>> details = transactionService.getExpenseTransactionDetails(user);
+		List<Transaction> details = transactionService.getExpenseTransactionDetails(user);
 
 		if (details != null) {
 			Assertions.assertTrue(true, "Expense Transaction Details is fetched successfully!");
 		} else {
 			// If the details cannot be fetched, the test should fail with an error message.
-			Assertions.fail("Expense Transaction Details is fetched. getExpenseTransactionDetails() method failed");
+			Assertions.fail("Expense Transaction Details not fetched. getExpenseTransactionDetails() method failed");
 		}
 		;
 
 	}
+	
+	
+
+	
+	@Test
+	void testValidGetAllTransactionDetails() throws DaoException {
+
+
+		List<Transaction> details = transactionService.getAllTransactionDetails(user);
+
+		if (details != null) {
+			Assertions.assertTrue(true, "All Transaction Details is fetched successfully!");
+		} else {
+			// If the details cannot be fetched, the test should fail with an error message.
+			Assertions.fail("All Transaction Details not fetched. testValidGetAllTransactionDetails() method failed");
+		}
+		
+
+	}
+	
+	
+	
 
 }

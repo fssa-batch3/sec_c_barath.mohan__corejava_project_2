@@ -12,7 +12,7 @@ public class TransactionValidator {
 	public boolean validateTransaction(Transaction transaction) throws TransactionException {
 		return validateTransactionType(transaction.getTransactionType()) && validateUser(transaction.getUser())
 				&& validateAmount(transaction.getAmount());
-	}
+	} 
 
 	public boolean validateTransactionType(TransactionType transactionType) throws TransactionException {
 		if (transactionType == null) {
@@ -29,7 +29,7 @@ public class TransactionValidator {
 	}
 
 	public boolean validateAmount(double amount) throws TransactionException {
-		if (amount < 0) {
+		if (amount <= 0) {
 
 			throw new TransactionException(TransactionError.INVALID_AMOUNT_ZERO);
 		}

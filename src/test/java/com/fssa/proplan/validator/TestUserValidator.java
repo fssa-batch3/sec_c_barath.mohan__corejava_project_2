@@ -74,9 +74,9 @@ import com.fssa.proplan.model.User;
 	// Test cases for isValidEmail() method
 
 	@Test
-	 void testValidEmail() throws UserException {
+	 void testValidEmail(String email) throws UserException {
 		// Test if the method accepts a valid email address
-		String validEmail = "john.doe@example.com";
+		String validEmail = "barath@gmail.com";
 		assertTrue(userValidator.isValidEmail(validEmail));
 	}
 

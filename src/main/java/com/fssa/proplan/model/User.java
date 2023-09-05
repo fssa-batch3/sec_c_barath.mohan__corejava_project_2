@@ -1,7 +1,14 @@
 package com.fssa.proplan.model;
 
 
+import com.fssa.proplan.dao.TransactionDao;
+import com.fssa.proplan.dao.UserDao;
+import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.logger.Logger;
+import com.fssa.proplan.service.TransactionService;
+import com.fssa.proplan.service.UserService;
+import com.fssa.proplan.validator.TransactionValidator;
+import com.fssa.proplan.validator.UserValidator;
 
 
 public class User {
@@ -71,9 +78,28 @@ public class User {
 	}
 
 	public User() {
-		logger.info("New Account is created successfully");
+		
 	}
 
-
+	public String toString() {
+		String log="";
+		log+="Name : "+this.name+"\n";
+		log+="Display Name : "+this.displayName+"\n";
+		log+="Email id : "+this.emailId+"\n";
+		log+="PhNo : "+this.phoneNumber+"\n";
+		log+="Profession : "+this.profession+"\n";
+		log+="Password : "+this.password+"\n";
+		
+		return log;
+	}
+	
+//	public static void main(String[] args) throws DaoException {
+//		User user1 = new User("dhilip", "1234567890", "student", "barathdh@gmail.com", "baGra@t1");
+//		UserService userService = new UserService(new UserDao(), new UserValidator());
+//		TransactionService transactionService= new TransactionService(new TransactionDao(), new TransactionValidator(), new UserDao());
+//		System.out.println(transactionService.getTotalIncome(user1));
+//		System.out.println(transactionService.getTotalExpense(user1));
+//		
+//	}
 
 }

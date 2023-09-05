@@ -51,7 +51,7 @@ public class UserValidator {
 		Matcher matcher = pattern.matcher(email.trim());
 
 		if (!matcher.matches()) {
-			throw new UserException(UserValidationErrors.INVALID_EMAIL);
+			throw new UserException(UserValidationErrors.INVALID_EMAIL+email);
 		} 
 		return true;
 	}

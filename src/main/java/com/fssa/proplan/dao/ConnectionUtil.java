@@ -23,13 +23,15 @@ public class ConnectionUtil {
 		passWord = System.getenv("DATABASE_PASSWORD");
 
 		try {
-
+			 Class.forName("com.mysql.cj.jdbc.Driver");
+			System.out.println(url);
 			return DriverManager.getConnection(url, userName, passWord);
 
-		} catch (SQLException e) {
-			throw new DaoException("Connection failure");
-		}
-
+		} catch (SQLException | ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+			throw new DaoException("Connection failure"+e.getMessage());
+		} 
+ 
 	}
 
 	public static void main(String[] args) throws SQLException {

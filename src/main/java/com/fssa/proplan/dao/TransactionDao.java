@@ -11,6 +11,7 @@ import java.util.List;
 import com.fssa.proplan.enumclass.TransactionType;
 import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.logger.Logger;
+import com.fssa.proplan.model.Transaction;
 import com.fssa.proplan.model.User;
 
 public class TransactionDao {
@@ -21,7 +22,7 @@ public class TransactionDao {
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 			String query = "INSERT INTO transactions(user_id,transaction_type,date,amount,balance,remarks) "
 					+ "VALUES(?,?,?,?,?,?)";
-  
+
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
 				java.util.Date utilDate = new java.util.Date();
@@ -32,7 +33,7 @@ public class TransactionDao {
 
 				psmt.setInt(1, UserDao.getUserIdByEmail(user.getEmailId()));
 				psmt.setString(2, TransactionType.INCOME.getStringValue());
-				psmt.setDate(3, sqlDate); 
+				psmt.setDate(3, sqlDate);
 				psmt.setDouble(4, amount);
 				psmt.setDouble(5, balance);
 				psmt.setString(6, remarks);
@@ -47,6 +48,7 @@ public class TransactionDao {
 			}
 
 		} catch (SQLException e) {
+			// TODO: Add printStackTrace();
 			throw new DaoException(e.getMessage());
 		}
 		return true;
@@ -108,7 +110,7 @@ public class TransactionDao {
 
 	// Retrieves the transaction details (income/expense) for the given user and
 	// type.
-	public static List<ArrayList<String>> getTransactionDetails(User user, String type) throws DaoException {
+	public static List<Transaction> getTransactionDetails(User user, String type) throws DaoException {
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 
 			String query = "SELECT transaction_type,date,amount,remarks FROM transactions where user_id=? AND transaction_type=?";
@@ -116,22 +118,27 @@ public class TransactionDao {
 			// Get the user's ID from the user's name.
 			int userId = UserDao.getUserIdByEmail(user.getEmailId());
 
+			List<Transaction> transactionDetails;
+			
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
-
+ 
 				psmt.setInt(1, userId);
 				psmt.setString(2, type);
 				try (ResultSet rs = psmt.executeQuery()) {
 
-					List<ArrayList<String>> transactionDetails = new ArrayList<>();
+					transactionDetails = new ArrayList<>();
 
 					// Fetch the transaction details from the result set and add to the list.
 					while (rs.next()) {
-						ArrayList<String> transactionDetail = new ArrayList<String>();
-						transactionDetail.add(rs.getString("transaction_type"));
-						transactionDetail.add(rs.getDate("date") + "");
-						transactionDetail.add(rs.getDouble("amount") + "");
-						transactionDetail.add(rs.getString("remarks"));
-						transactionDetails.add(transactionDetail);
+						Transaction transaction = new Transaction();
+						transaction.setAmount(rs.getDouble("amount"));
+						transaction.setRemarks(rs.getString("remarks"));
+						transaction.setTransactionType(TransactionType.valueOf(rs.getString("transaction_type")));
+						transaction.setDate(rs.getDate("date").toLocalDate());
+						transaction.setUser(user);
+						
+						
+						transactionDetails.add(transaction);
 					}
 
 					return transactionDetails;
@@ -145,13 +152,88 @@ public class TransactionDao {
 
 	}
 
-	public static List<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
+	public static List<Transaction> getAllTransactionDetails(User user) throws DaoException {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
+
+			String query = "SELECT transaction_type,date,balance,amount,remarks FROM transactions where user_id=? ";
+
+			// Get the user's ID from the user's name.
+			int userId = UserDao.getUserIdByEmail(user.getEmailId());
+
+			try (PreparedStatement psmt = con.prepareStatement(query)) {
+
+				psmt.setInt(1, userId);
+
+				try (ResultSet rs = psmt.executeQuery()) {
+
+					List<Transaction> transactionDetails = new ArrayList<>();
+
+					// Fetch the transaction details from the result set and add to the list.
+					while (rs.next()) {
+						
+						Transaction transaction = new Transaction();
+						transaction.setAmount(rs.getDouble("amount"));
+						transaction.setRemarks(rs.getString("remarks"));
+						System.out.println(rs.getString("transaction_type"));
+						transaction.setTransactionType(TransactionType.valueOf(rs.getString("transaction_type").toUpperCase()));
+						transaction.setDate(rs.getDate("date").toLocalDate());
+						transaction.setBalance(rs.getDouble("balance"));
+						transactionDetails.add(transaction);
+					}
+
+					return transactionDetails;
+				}
+
+			}
+
+		} catch (SQLException ex) {
+			throw new DaoException(ex.getMessage());
+		}
+
+	}
+
+	public static double getTotalTransactionAmount(User user, String transactionType) throws DaoException {
+
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
+			String query = "SELECT amount FROM transactions where transaction_type=? ";
+
+			try (PreparedStatement psmt = con.prepareStatement(query)) {
+
+				psmt.setString(1, transactionType);
+
+				ResultSet rs = psmt.executeQuery();
+				double amount = 0;
+				while (rs.next()) {
+					amount += rs.getDouble("amount");
+				}
+
+				logger.info("Total Transaction amount is fetched successfully ");
+				return amount;
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException(e.getMessage());
+		}
+
+	}
+
+	public static double getTotalIncome(User user) throws DaoException {
+
+		return getTotalTransactionAmount(user, TransactionType.INCOME.getStringValue());
+	}
+
+	public static double getTotalExpense(User user) throws DaoException {
+		return getTotalTransactionAmount(user, TransactionType.EXPENSE.getStringValue());
+
+	}
+
+	public static  List<Transaction> getIncomeTransactionDetails(User user) throws DaoException {
 		// Retrieves the income transaction details for the given user.
 
 		return getTransactionDetails(user, TransactionType.INCOME.getStringValue());
-	} 
+	}
 
-	public static List<ArrayList<String>> getExpenseTransactionDetails(User user) throws DaoException {
+	public static List<Transaction> getExpenseTransactionDetails(User user) throws DaoException {
 		// Retrieves the expense transaction details for the given user.
 		return getTransactionDetails(user, TransactionType.EXPENSE.getStringValue());
 

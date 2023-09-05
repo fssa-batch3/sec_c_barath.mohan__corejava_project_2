@@ -17,7 +17,7 @@ public class UserDao {
 	static Logger logger = new Logger();
 
 	// Adds a new user to the database based on the provided User object.
-	public  boolean addUser(User user) throws DaoException {
+	public boolean addUser(User user) throws DaoException {
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 			// SQL query to insert a new user into the 'user' table.
 			String query = "INSERT INTO user(name,phone_num,profession,email_id,password,active) "
@@ -35,7 +35,7 @@ public class UserDao {
 
 				// Executes the insert query and returns the number of rows affected.
 				int rowAffected = psmt.executeUpdate();
-
+ 
 				// Prints the number of rows affected by the insert query.
 				logger.info(rowAffected + " row/rows affected");
 
@@ -47,6 +47,38 @@ public class UserDao {
 
 		} catch (SQLException e) {
 			throw new DaoException(e.getMessage());
+		}
+		return true;
+	}
+	
+	
+	// Adds a new user to the database based on the provided User object.
+	public boolean updateUser(User user) throws DaoException {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
+			// SQL query to insert a new user into the 'user' table.
+			String query = "UPDATE user set name=?,phone_num=?,profession=?, display_name =? where email_id=?";
+
+			// Prepares the SQL query with the provided user details.
+			try (PreparedStatement psmt = con.prepareStatement(query)) {
+				// Sets the user details in the PreparedStatement.
+				psmt.setString(1, user.getName());
+				psmt.setString(2, user.getPhoneNumber());
+				psmt.setString(3, user.getProfession());
+				psmt.setString(4, user.getDisplayName());
+				psmt.setString(5, user.getEmailId());
+	
+				// Executes the insert query and returns the number of rows affected.
+				int rowAffected = psmt.executeUpdate();
+ 
+				// Prints the number of rows affected by the insert query.
+				logger.info(rowAffected + " row/rows affected");
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException(e.getMessage());
+			
 		}
 		return true;
 	}
@@ -72,7 +104,7 @@ public class UserDao {
 					while (resultSet.next()) {
 						userNames.add(resultSet.getString(1));
 					}
-				} 
+				}
 			}
 
 		} catch (SQLException e) {
@@ -109,7 +141,7 @@ public class UserDao {
 	}
 
 	// Checks if a user with the provided details exists in the 'user' table.
-	public  boolean isUserExist(User user) throws DaoException {
+	public boolean isUserExist(User user) throws DaoException {
 		// Retrieves all user email addresses from the 'user' table.
 		List<String> userEmails = getAllUserEmails();
 
@@ -177,5 +209,84 @@ public class UserDao {
 			throw new DaoException(e.getMessage());
 		}
 	}
+
+	// Deletes a user from the 'user' table based on the provided User object.
+	public User login(String email, String password) throws DaoException {
+
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
+
+			// SQL query to delete the user from the 'user' table.
+			String query = "SELECT * FROM user WHERE email_id = ? AND password = ?";
+
+			User user;
+			// Prepares the SQL query with the user_id.
+			try (PreparedStatement psmt = con.prepareStatement(query)) {
+
+				// Sets the user_id in the PreparedStatement.
+				psmt.setString(1, email);
+				psmt.setString(2, password);
+
+				// Executes the delete query.
+				try (ResultSet rs = psmt.executeQuery()) {
+
+					if (rs.next()) {
+						user = new User();
+
+						user.setName(rs.getString("name"));
+						user.setPhoneNumber(rs.getString("phone_num"));
+						user.setEmailId(rs.getString("email_id"));
+						user.setProfession(rs.getString("profession"));
+						user.setPassword(rs.getString("password"));
+						return user;
+					}
+				}
+
+			}
+			return null;
+
+		} catch (SQLException e) {
+			throw new DaoException(e.getMessage());
+		}
+	}
+	
+	// Deletes a user from the 'user' table based on the provided User object.
+	public User getUserByEmail(String email) throws DaoException {
+
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
+
+			// SQL query to delete the user from the 'user' table.
+			String query = "SELECT * FROM user WHERE email_id = ?";
+
+			User user;
+			// Prepares the SQL query with the user_id.
+			try (PreparedStatement psmt = con.prepareStatement(query)) {
+
+				
+				psmt.setString(1, email);
+				
+
+				// Executes the delete query.
+				try (ResultSet rs = psmt.executeQuery()) {
+
+					if (rs.next()) {
+						user = new User();
+						user.setDisplayName(rs.getString("display_name"));
+						user.setName(rs.getString("name"));
+						user.setPhoneNumber(rs.getString("phone_num"));
+						user.setEmailId(rs.getString("email_id"));
+						user.setProfession(rs.getString("profession"));
+						user.setPassword(rs.getString("password"));
+						return user; 
+					}
+				}
+
+			}
+			return null;
+
+		} catch (SQLException e) {
+			throw new DaoException(e.getMessage());
+		}
+	}
+	
 
 }

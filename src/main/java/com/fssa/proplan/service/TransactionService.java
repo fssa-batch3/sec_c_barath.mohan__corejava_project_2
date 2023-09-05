@@ -3,6 +3,7 @@ package com.fssa.proplan.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fssa.proplan.dao.BalanceDao;
 import com.fssa.proplan.dao.TransactionDao;
 import com.fssa.proplan.dao.UserDao;
 import com.fssa.proplan.enumclass.TransactionType;
@@ -38,6 +39,7 @@ public class TransactionService {
 	 * @throws DaoException         If there is an issue with the data access layer.
 	 * @throws TransactionException If there is an issue with the transaction data.
 	 */
+	
 	public boolean addTransaction(Transaction transaction) throws DaoException, TransactionException {
 		// Validate the transaction before proceeding
 		transactionValidator.validateTransaction(transaction);
@@ -63,7 +65,7 @@ public class TransactionService {
 	}
 
 	// Static method to get the income transaction details for the given user.
-	public List<ArrayList<String>> getIncomeTransactionDetails(User user) throws DaoException {
+	public List<Transaction> getIncomeTransactionDetails(User user) throws DaoException {
 		// Check if the user is null or doesn't exist in the UserDao.
 		if (user == null || !userDao.isUserExist(user)) {
 			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
@@ -73,8 +75,10 @@ public class TransactionService {
 		return TransactionDao.getIncomeTransactionDetails(user);
 	}
 
+	
+	
 	// Static method to get the expense transaction details for the given user.
-	public List<ArrayList<String>> getExpenseTransactionDetails(User user) throws DaoException {
+	public List<Transaction> getExpenseTransactionDetails(User user) throws DaoException {
 		// Check if the user is null or doesn't exist in the UserDao.
 		if (user == null || !userDao.isUserExist(user)) {
 			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
@@ -83,5 +87,50 @@ public class TransactionService {
 		// Retrieve the expense transaction details from the TransactionDao.
 		return TransactionDao.getExpenseTransactionDetails(user);
 	}
+	
+	
+	
+	
+	public List<Transaction> getAllTransactionDetails(User user) throws DaoException {
+		// Check if the user is null or doesn't exist in the UserDao.
+		if (user == null || !userDao.isUserExist(user)) {
+			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
+		}
 
+		// Retrieve the all transaction details from the TransactionDao.
+		return TransactionDao.getAllTransactionDetails(user);
+	}
+	
+	public double getBalance(User user) throws DaoException {
+		// Check if the user is null or doesn't exist in the UserDao.
+		if (user == null || !userDao.isUserExist(user)) {
+			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
+		}
+
+		// Retrieve the all transaction details from the TransactionDao.
+		return BalanceDao.getBalanceByUser(user);
+	}
+	
+	
+	public double getTotalIncome(User user) throws DaoException {
+	
+		if (user == null || !userDao.isUserExist(user)) {
+			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
+		}
+
+		return TransactionDao.getTotalIncome(user);
+	}
+
+	
+	
+	public double getTotalExpense(User user) throws DaoException {
+		if (user == null || !userDao.isUserExist(user)) {
+			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
+		}
+
+		return TransactionDao.getTotalExpense(user);
+	}
+	
+	
+ 
 }
