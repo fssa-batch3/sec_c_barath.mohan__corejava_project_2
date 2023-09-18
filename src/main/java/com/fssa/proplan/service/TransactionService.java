@@ -1,12 +1,12 @@
 package com.fssa.proplan.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fssa.proplan.dao.BalanceDao;
 import com.fssa.proplan.dao.TransactionDao;
 import com.fssa.proplan.dao.UserDao;
 import com.fssa.proplan.enumclass.TransactionType;
+import com.fssa.proplan.errormessages.TransactionError;
 import com.fssa.proplan.errormessages.UserValidationErrors;
 import com.fssa.proplan.exceptions.DaoException;
 import com.fssa.proplan.exceptions.TransactionException;
@@ -33,7 +33,7 @@ public class TransactionService {
 
 	/**
 	 * Adds a new transaction to the system.
-	 *
+	 * 
 	 * @param transaction The transaction to be added.
 	 * @return True if the transaction was added successfully, otherwise false.
 	 * @throws DaoException         If there is an issue with the data access layer.
@@ -48,15 +48,19 @@ public class TransactionService {
 		if (!userDao.isUserExist(transaction.getUser())) {
 			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
 		}
-
+  
 		// Determine the type of transaction (income or expense)
 		if (transaction.getTransactionType() == TransactionType.INCOME) {
 			// Add the income transaction to the database
 			transactionDao.addIncome(transaction.getUser(), transaction.getAmount(), transaction.getRemarks());
 			logger.debug("Income is added successfully");
-		} else {
+		} else {  
+			double balance=getBalance(transaction.getUser());
+			if(balance<transaction.getAmount()) {
+				throw new TransactionException(TransactionError.INVALID_WITHDRAW_LIMIT_REACHES);
+			}
 			// Add the expense transaction to the database
-			transactionDao.addExpense(transaction.getUser(), transaction.getAmount(), transaction.getRemarks());
+			transactionDao.addExpense(transaction);
 			logger.debug("Expense is added successfully");
 		}
 
@@ -116,7 +120,7 @@ public class TransactionService {
 	
 		if (user == null || !userDao.isUserExist(user)) {
 			throw new DaoException(UserValidationErrors.USER_NOT_EXISTS);
-		}
+		} 
 
 		return TransactionDao.getTotalIncome(user);
 	}
@@ -130,6 +134,9 @@ public class TransactionService {
 
 		return TransactionDao.getTotalExpense(user);
 	}
+	
+	
+	
 	
 	
  

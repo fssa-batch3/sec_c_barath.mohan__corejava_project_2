@@ -22,6 +22,8 @@ public class Transaction {
 	private LocalDate date;
 	
 	private double balance;
+	
+	private String categoryName;
 
 	public double getBalance() {
 		return balance;
@@ -87,9 +89,13 @@ public class Transaction {
 		return remarks;
 	}
 
-	@Override
-	public String toString() {
-		return "Transaction [transactionType=" + transactionType + ", user=" + user + ", amount=" + amount
-				+ ", remarks=" + remarks + ", date=" + date + "]";
+	public String getCategoryName() {
+		return categoryName;
 	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	
 }

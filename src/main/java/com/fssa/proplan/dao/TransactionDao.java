@@ -15,7 +15,6 @@ import com.fssa.proplan.model.Transaction;
 import com.fssa.proplan.model.User;
 
 public class TransactionDao {
-	static Logger logger = new Logger();
 
 	// Adds income transaction for the given user.
 	public boolean addIncome(User user, double amount, String remarks) throws DaoException {
@@ -32,7 +31,7 @@ public class TransactionDao {
 				double balance = BalanceDao.getBalanceByUser(user) + amount;
 
 				psmt.setInt(1, UserDao.getUserIdByEmail(user.getEmailId()));
-				psmt.setString(2, TransactionType.INCOME.getStringValue());
+				psmt.setString(2, TransactionType.INCOME.getValue());
 				psmt.setDate(3, sqlDate);
 				psmt.setDouble(4, amount);
 				psmt.setDouble(5, balance);
@@ -44,40 +43,54 @@ public class TransactionDao {
 
 				BalanceDao.updateUserBalance(user, balance);
 
-				logger.info(rowAffected + " row/rows affected ");
+				Logger.info(rowAffected + " row/rows affected ");
 			}
 
 		} catch (SQLException e) {
-			// TODO: Add printStackTrace();
+			e.printStackTrace();
 			throw new DaoException(e.getMessage());
 		}
 		return true;
 	}
 
-	public boolean addExpense(User user, double amount, String remarks) throws DaoException {
+	public boolean addExpense(Transaction transaction) throws DaoException {
 
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
-			String query = "INSERT INTO transactions(user_id,transaction_type,date,amount,balance,remarks) "
-					+ "VALUES(?,?,?,?,?,?)";
+			String query = "INSERT INTO transactions(user_id,transaction_type,date,amount,balance,remarks,category_id) "
+					+ "VALUES(?,?,?,?,?,?,?)";
 
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
 				java.util.Date utilDate = new java.util.Date();
 				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-				double balance = BalanceDao.getBalanceByUser(user) - amount;
-				psmt.setInt(1, UserDao.getUserIdByEmail(user.getEmailId()));
-				psmt.setString(2, TransactionType.EXPENSE.getStringValue());
+				int categoryId = BudgetDao.getCategoryIdByName(transaction.getCategoryName(), transaction.getUser());
+				Logger.info("Category : " + categoryId);
+				
+				int userId=UserDao.getUserIdByEmail(transaction.getUser().getEmailId());
+				
+				double balance = BalanceDao.getBalanceByUser(transaction.getUser()) - transaction.getAmount();
+				Logger.info("balance : " + balance);
+				
+				BalanceDao.updateUserBalance(transaction.getUser(), balance);
+				Logger.info("done update user balance");
+				
+				BudgetDao.addCategoryExpense(categoryId, transaction.getAmount());
+				Logger.info("done adding category expense");
+				
+				BudgetDao.addBudgetExpense(userId, transaction.getAmount());
+				Logger.info("done adding Budget expense");
+				
+				psmt.setInt(1, userId);
+				psmt.setString(2, TransactionType.EXPENSE.getValue());
 				psmt.setDate(3, sqlDate);
-				psmt.setDouble(4, amount);
+				psmt.setDouble(4, transaction.getAmount());
 				psmt.setDouble(5, balance);
-				psmt.setString(6, remarks);
-
+				psmt.setString(6, transaction.getRemarks());
+				psmt.setInt(7, categoryId);
 				int rowAffected = psmt.executeUpdate();
 
-				BalanceDao.updateUserBalance(user, balance);
-
-				logger.info(rowAffected + "row/rows affected ");
+				Logger.info(rowAffected + "row/rows affected ");
 			}
 
 		} catch (SQLException e) {
@@ -95,9 +108,9 @@ public class TransactionDao {
 
 				int rowAffected = smt.executeUpdate(query);
 
-				logger.info(rowAffected + "row/rows affected ");
+				Logger.info(rowAffected + "row/rows affected ");
 
-				logger.info("Transactions Table values are cleared");
+				Logger.info("Transactions Table values are cleared");
 
 			}
 
@@ -119,9 +132,9 @@ public class TransactionDao {
 			int userId = UserDao.getUserIdByEmail(user.getEmailId());
 
 			List<Transaction> transactionDetails;
-			
+
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
- 
+
 				psmt.setInt(1, userId);
 				psmt.setString(2, type);
 				try (ResultSet rs = psmt.executeQuery()) {
@@ -133,11 +146,10 @@ public class TransactionDao {
 						Transaction transaction = new Transaction();
 						transaction.setAmount(rs.getDouble("amount"));
 						transaction.setRemarks(rs.getString("remarks"));
-						transaction.setTransactionType(TransactionType.valueOf(rs.getString("transaction_type")));
+						transaction.setTransactionType(TransactionType.valueToEnumMapping(rs.getString("transaction_type")));
 						transaction.setDate(rs.getDate("date").toLocalDate());
 						transaction.setUser(user);
-						
-						
+
 						transactionDetails.add(transaction);
 					}
 
@@ -170,12 +182,13 @@ public class TransactionDao {
 
 					// Fetch the transaction details from the result set and add to the list.
 					while (rs.next()) {
-						
+
 						Transaction transaction = new Transaction();
 						transaction.setAmount(rs.getDouble("amount"));
 						transaction.setRemarks(rs.getString("remarks"));
-						System.out.println(rs.getString("transaction_type"));
-						transaction.setTransactionType(TransactionType.valueOf(rs.getString("transaction_type").toUpperCase()));
+
+						transaction.setTransactionType(
+								TransactionType.valueOf(rs.getString("transaction_type").toUpperCase()));
 						transaction.setDate(rs.getDate("date").toLocalDate());
 						transaction.setBalance(rs.getDouble("balance"));
 						transactionDetails.add(transaction);
@@ -195,19 +208,19 @@ public class TransactionDao {
 	public static double getTotalTransactionAmount(User user, String transactionType) throws DaoException {
 
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
-			String query = "SELECT amount FROM transactions where transaction_type=? ";
+			String query = "SELECT amount FROM transactions where transaction_type=? and user_id=?";
 
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
 				psmt.setString(1, transactionType);
-
+				psmt.setInt(2, UserDao.getUserIdByEmail(user.getEmailId()));
 				ResultSet rs = psmt.executeQuery();
 				double amount = 0;
 				while (rs.next()) {
 					amount += rs.getDouble("amount");
 				}
 
-				logger.info("Total Transaction amount is fetched successfully ");
+				Logger.info("Total Transaction amount is fetched successfully ");
 				return amount;
 			}
 
@@ -219,23 +232,23 @@ public class TransactionDao {
 
 	public static double getTotalIncome(User user) throws DaoException {
 
-		return getTotalTransactionAmount(user, TransactionType.INCOME.getStringValue());
+		return getTotalTransactionAmount(user, TransactionType.INCOME.getValue());
 	}
 
 	public static double getTotalExpense(User user) throws DaoException {
-		return getTotalTransactionAmount(user, TransactionType.EXPENSE.getStringValue());
+		return getTotalTransactionAmount(user, TransactionType.EXPENSE.getValue());
 
 	}
 
-	public static  List<Transaction> getIncomeTransactionDetails(User user) throws DaoException {
+	public static List<Transaction> getIncomeTransactionDetails(User user) throws DaoException {
 		// Retrieves the income transaction details for the given user.
 
-		return getTransactionDetails(user, TransactionType.INCOME.getStringValue());
+		return getTransactionDetails(user, TransactionType.INCOME.getValue());
 	}
 
 	public static List<Transaction> getExpenseTransactionDetails(User user) throws DaoException {
 		// Retrieves the expense transaction details for the given user.
-		return getTransactionDetails(user, TransactionType.EXPENSE.getStringValue());
+		return getTransactionDetails(user, TransactionType.EXPENSE.getValue());
 
 	}
 

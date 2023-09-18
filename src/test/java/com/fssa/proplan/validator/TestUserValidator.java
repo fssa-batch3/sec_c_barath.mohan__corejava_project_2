@@ -8,20 +8,20 @@ import org.junit.jupiter.api.Test;
 import com.fssa.proplan.exceptions.UserException;
 import com.fssa.proplan.model.User;
 
- class TestUserValidator {
+class TestUserValidator {
 
 	// Test cases for isValidName() method
-	UserValidator userValidator = new UserValidator(); 
+	UserValidator userValidator = new UserValidator();
 
 	@Test
-	 void testIsValidUserValid() throws UserException {
+	void testIsValidUserValid() throws UserException {
 		User user1 = new User("Barath", "1234567890", "student", "mohan1@gmail.com", "baGra@t1");
- 
+
 		assertTrue(userValidator.isValidUser(user1));
 	}
 
 	@Test
-	 void testIsValidUserInvalid() throws UserException {
+	void testIsValidUserInvalid() throws UserException {
 
 		User user1 = new User();
 
@@ -29,44 +29,44 @@ import com.fssa.proplan.model.User;
 		user1.setEmailId("barath@123");
 		user1.setName("barath");
 		user1.setPassword("0");
-		user1.setPhoneNumber("1234567890"); 
+		user1.setPhoneNumber("1234567890");
 		user1.setProfession("student");
 
 		assertThrows(UserException.class, () -> userValidator.isValidUser(user1));
 	}
 
 	@Test
-	 void testValidName() throws UserException {
+	void testValidName() throws UserException {
 		// Test if the method accepts a valid name with alphabets and spaces
 		assertTrue(userValidator.isValidName("John Doe"));
 	}
 
 	@Test
-	 void testValidNameWithWhitespace() throws UserException {
+	void testValidNameWithWhitespace() throws UserException {
 		// Test if the method accepts a valid name with leading and trailing spaces
 		assertTrue(userValidator.isValidName("   Jane Smith   "));
 	}
- 
+
 	@Test
-	 void testInvalidNameWithDigits() {
+	void testInvalidNameWithDigits() {
 		// Test if the method throws an exception for a name containing digits
 		assertThrows(UserException.class, () -> userValidator.isValidName("John123"));
 	}
- 
+
 	@Test
-	 void testNullName() {
+	void testNullName() {
 		// Test if the method throws an exception for a null name
 		assertThrows(UserException.class, () -> userValidator.isValidName(null));
 	}
 
 	@Test
-	 void testEmptyNameWithWhitespace() {
+	void testEmptyNameWithWhitespace() {
 		// Test if the method throws an exception for an empty name with whitespace
 		assertThrows(UserException.class, () -> userValidator.isValidName("    "));
 	}
 
 	@Test
-	 void testEmptyName() {
+	void testEmptyName() {
 		// Test if the method throws an exception for an empty name
 		assertThrows(UserException.class, () -> userValidator.isValidName(""));
 	}
@@ -74,21 +74,21 @@ import com.fssa.proplan.model.User;
 	// Test cases for isValidEmail() method
 
 	@Test
-	 void testValidEmail(String email) throws UserException {
+	void testValidEmail() throws UserException {
 		// Test if the method accepts a valid email address
-		String validEmail = "barath@gmail.com";
+		String validEmail = "barath23@gmail.com";
 		assertTrue(userValidator.isValidEmail(validEmail));
 	}
 
 	@Test
-	 void testInvalidEmail() {
+	void testInvalidEmail() {
 		// Test if the method throws an exception for an invalid email address
 		String invalidEmail = "invalid_email";
 		assertThrows(UserException.class, () -> userValidator.isValidEmail(invalidEmail));
 	}
 
 	@Test
-	 void testEmailWithLeadingAndTrailingSpaces() throws UserException {
+	void testEmailWithLeadingAndTrailingSpaces() throws UserException {
 		// Test if the method accepts a valid email address with leading and trailing
 		// spaces
 		String emailWithSpaces = "  john.doe@example.com  ";
@@ -96,14 +96,14 @@ import com.fssa.proplan.model.User;
 	}
 
 	@Test
-	 void testNullEmail() {
+	void testNullEmail() {
 		// Test if the method throws an exception for a null email address
 		String nullEmail = null;
 		assertThrows(UserException.class, () -> userValidator.isValidEmail(nullEmail));
 	}
 
 	@Test
-	 void testEmptyEmail() {
+	void testEmptyEmail() {
 		// Test if the method throws an exception for an empty email address
 		String emptyEmail = "";
 		assertThrows(UserException.class, () -> userValidator.isValidEmail(emptyEmail));
@@ -112,28 +112,28 @@ import com.fssa.proplan.model.User;
 	// Test cases for isValidPassword() method
 
 	@Test
-	 void testValidPassword() throws UserException {
+	void testValidPassword() throws UserException {
 		// Test if the method accepts a valid password with all required criteria met
 		String validPassword = "P@ssw0rd";
 		assertTrue(userValidator.isValidPassword(validPassword));
 	}
 
 	@Test
-	 void testNullPassword() {
+	void testNullPassword() {
 		// Test if the method throws an exception for a null password
 		String nullPassword = null;
 		assertThrows(UserException.class, () -> userValidator.isValidPassword(nullPassword));
 	}
 
 	@Test
-	 void testEmptyPassword() {
+	void testEmptyPassword() {
 		// Test if the method throws an exception for an empty password
 		String emptyPassword = "";
 		assertThrows(UserException.class, () -> userValidator.isValidPassword(emptyPassword));
 	}
 
 	@Test
-	 void testWhitespacePassword() {
+	void testWhitespacePassword() {
 		// Test if the method throws an exception for a password containing only
 		// whitespace
 		String whitespacePassword = "     ";
@@ -141,7 +141,7 @@ import com.fssa.proplan.model.User;
 	}
 
 	@Test
-	 void testPasswordShorterThanEightCharacters() {
+	void testPasswordShorterThanEightCharacters() {
 		// Test if the method throws an exception for a password shorter than eight
 		// characters
 		String shortPassword = "Ab1$";
@@ -149,7 +149,7 @@ import com.fssa.proplan.model.User;
 	}
 
 	@Test
-	 void testPasswordMissingUppercaseLetter() {
+	void testPasswordMissingUppercaseLetter() {
 		// Test if the method throws an exception for a password without an uppercase
 		// letter
 		String passwordWithoutUppercase = "test@123";
@@ -157,7 +157,7 @@ import com.fssa.proplan.model.User;
 	}
 
 	@Test
-	 void testPasswordMissingLowercaseLetter() {
+	void testPasswordMissingLowercaseLetter() {
 		// Test if the method throws an exception for a password without a lowercase
 		// letter
 		String passwordWithoutLowercase = "TEST@123";
@@ -165,14 +165,14 @@ import com.fssa.proplan.model.User;
 	}
 
 	@Test
-	 void testPasswordMissingDigit() {
+	void testPasswordMissingDigit() {
 		// Test if the method throws an exception for a password without a digit
 		String passwordWithoutDigit = "Test@Pass";
 		assertThrows(UserException.class, () -> userValidator.isValidPassword(passwordWithoutDigit));
 	}
 
 	@Test
-	 void testPasswordMissingSpecialCharacter() {
+	void testPasswordMissingSpecialCharacter() {
 		// Test if the method throws an exception for a password without a special
 		// character
 		String passwordWithoutSpecialChar = "Test1234";
@@ -182,14 +182,14 @@ import com.fssa.proplan.model.User;
 	// Test cases for isValidProfession() method
 
 	@Test
-	 void testValidProfession() throws UserException {
+	void testValidProfession() throws UserException {
 		// Test if the method accepts a valid profession with alphabets and spaces
 		String validProfession = "Software Developer";
 		assertTrue(userValidator.isValidProfession(validProfession));
 	}
 
 	@Test
-	 void testValidProfessionWithWhitespace() throws UserException {
+	void testValidProfessionWithWhitespace() throws UserException {
 		// Test if the method accepts a valid profession with leading and trailing
 		// spaces
 		String validProfession = "   Data Analyst   ";
@@ -197,28 +197,28 @@ import com.fssa.proplan.model.User;
 	}
 
 	@Test
-	 void testInvalidProfessionWithNumbers() {
+	void testInvalidProfessionWithNumbers() {
 		// Test if the method throws an exception for a profession containing numbers
 		String invalidProfession = "Web Developer 123";
 		assertThrows(UserException.class, () -> userValidator.isValidProfession(invalidProfession));
 	}
 
 	@Test
-	 void testEmptyProfession() {
+	void testEmptyProfession() {
 		// Test if the method throws an exception for an empty profession
 		String emptyProfession = "";
 		assertThrows(UserException.class, () -> userValidator.isValidProfession(emptyProfession));
 	}
 
 	@Test
-	 void testNullProfession() {
+	void testNullProfession() {
 		// Test if the method throws an exception for a null profession
 		String nullProfession = null;
 		assertThrows(UserException.class, () -> userValidator.isValidProfession(nullProfession));
 	}
 
 	@Test
-	 void testProfessionWithOnlyDigits() {
+	void testProfessionWithOnlyDigits() {
 		// Test if the method throws an exception for a profession containing only
 		// digits
 		String professionWithDigits = "12345";

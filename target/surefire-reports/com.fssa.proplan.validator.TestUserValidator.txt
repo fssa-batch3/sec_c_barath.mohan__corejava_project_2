@@ -1,4 +1,7 @@
 -------------------------------------------------------------------------------
 Test set: com.fssa.proplan.validator.TestUserValidator
 -------------------------------------------------------------------------------
-Tests run: 35, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.054 s - in com.fssa.proplan.validator.TestUserValidator
+Tests run: 35, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.043 s <<< FAILURE! - in com.fssa.proplan.validator.TestUserValidator
+testValidEmail{String}  Time elapsed: 0 s  <<< ERROR!
+org.junit.jupiter.api.extension.ParameterResolutionException: No ParameterResolver registered for parameter [java.lang.String arg0] in method [void com.fssa.proplan.validator.TestUserValidator.testValidEmail(java.lang.String) throws com.fssa.proplan.exceptions.UserException].
+

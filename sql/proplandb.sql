@@ -1,6 +1,5 @@
 
--- Creating user table
-
+-- Query for creating a user table to store user details
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
@@ -11,10 +10,41 @@ CREATE TABLE `user` (
   `password` varchar(45) DEFAULT NULL,
   `active` int DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) 
+) ;
 
--- Creating transactions table
+-- Query for creating a balance table to store user balance details
+CREATE TABLE `balance` (
+  `user_id` int NOT NULL,
+  `balance` double DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+);
 
+-- Query for creating a budget table to store user budget details
+CREATE TABLE `budget` (
+  `budget_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `monthly_income` double DEFAULT NULL,
+  `expense_percentage` int DEFAULT NULL,
+  `budget_amount` double DEFAULT NULL,
+  `amount_spent` double DEFAULT NULL,
+  PRIMARY KEY (`budget_id`),
+  KEY `user_id_idx` (`user_id`)
+);
+
+-- Query for creating a budget_categories table to store budget category details
+CREATE TABLE `budget_categories` (
+  `category_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `category_name` varchar(45) DEFAULT NULL,
+  `budget_amount` double DEFAULT NULL,
+  `amount_spent` double DEFAULT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `user_category_idx` (`user_id`),
+  CONSTRAINT `user_category` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ;
+
+-- Query for creating a transaction table to store transaction details of users
 CREATE TABLE `transactions` (
   `transaction_id` int NOT NULL AUTO_INCREMENT,
   `transaction_type` varchar(20) DEFAULT NULL,
@@ -23,21 +53,13 @@ CREATE TABLE `transactions` (
   `balance` double DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   `remarks` varchar(100) DEFAULT NULL,
+  `category_id` int DEFAULT NULL,
   PRIMARY KEY (`transaction_id`),
   KEY `user_id1` (`user_id`),
+  KEY `transaction_category_id_idx` (`category_id`),
+  CONSTRAINT `transaction_category_id` FOREIGN KEY (`category_id`) REFERENCES `budget_categories` (`category_id`),
   CONSTRAINT `user_id1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) 
-
--- Creating balance table
-
-CREATE TABLE `balance` (
-  `user_id` int NOT NULL,
-  `balance` double DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-)
-
-
+);
 
 
 -- UserDao Queries 

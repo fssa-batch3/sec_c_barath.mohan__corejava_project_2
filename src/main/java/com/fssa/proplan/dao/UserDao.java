@@ -144,7 +144,7 @@ public class UserDao {
 	public boolean isUserExist(User user) throws DaoException {
 		// Retrieves all user email addresses from the 'user' table.
 		List<String> userEmails = getAllUserEmails();
-
+		Logger.info(userEmails);
 		// Checks if the provided user's email is in the list of user emails.
 		return userEmails.contains(user.getEmailId());
 	}
@@ -231,7 +231,7 @@ public class UserDao {
 
 					if (rs.next()) {
 						user = new User();
-
+						user.setDisplayName(rs.getString("display_name"));
 						user.setName(rs.getString("name"));
 						user.setPhoneNumber(rs.getString("phone_num"));
 						user.setEmailId(rs.getString("email_id"));

@@ -1,0 +1,7 @@
+com\fssa\proplan\service\TestTransactionService.class
+com\fssa\proplan\dao\TestProplanDao.class
+com\fssa\proplan\logger\TestLogger.class
+com\fssa\proplan\service\TestUserService.class
+com\fssa\proplan\validator\TestTransactionValidator.class
+com\fssa\proplan\validator\TestUserValidator.class
+com\fssa\proplan\service\TestBudgetService.class

@@ -18,10 +18,10 @@ public class ConnectionUtil {
 		String userName;
 		String passWord;
 
-		url = System.getenv("DATABASE_HOST");
-		userName = System.getenv("DATABASE_USERNAME");
-		passWord = System.getenv("DATABASE_PASSWORD");
-
+		url = System.getenv("DATABASE_HOST1");
+		userName = System.getenv("DATABASE_USERNAME1");
+		passWord = System.getenv("DATABASE_PASSWORD1");
+ 
 		try {
 			 Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println(url);
@@ -31,6 +31,7 @@ public class ConnectionUtil {
 			System.out.println(e.getMessage());
 			throw new DaoException("Connection failure"+e.getMessage());
 		} 
+		
  
 	}
 
@@ -38,6 +39,7 @@ public class ConnectionUtil {
 
 		try {
 			getSchemaConnection();
+			
 			logger.info("connected successfully");
 
 		} catch (DaoException e) {

@@ -11,9 +11,9 @@ public class TransactionValidator {
 
 	public boolean validateTransaction(Transaction transaction) throws TransactionException {
 		return validateTransactionType(transaction.getTransactionType()) && validateUser(transaction.getUser())
-				&& validateAmount(transaction.getAmount());
+				&& validateAmount(transaction.getAmount())&& validateRemarks(transaction.getRemarks());
 	} 
-
+ 
 	public boolean validateTransactionType(TransactionType transactionType) throws TransactionException {
 		if (transactionType == null) {
 			throw new TransactionException(TransactionError.INVALID_TRANSACTION_TYPE);
@@ -35,4 +35,13 @@ public class TransactionValidator {
 		}
 		return true; // You can add more specific amount validation logic here
 	}
+	
+	public boolean validateRemarks(String remarks) throws TransactionException {
+		if (remarks.trim().isEmpty() || remarks==null) {
+ 
+			throw new TransactionException(TransactionError.INVALID_REMARKS);
+		}
+		return true; // You can add more specific amount validation logic here
+	}
+	
 }

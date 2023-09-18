@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.fssa.proplan.validator.TestUserValidator" time="0.043" tests="35" errors="1" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.fssa.proplan.service.TestBudgetService" time="0.29" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -57,42 +57,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testNullPassword" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testValidPassword" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testPasswordShorterThanEightCharacters" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testEmptyEmail" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testEmptyPhoneNumber" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testEmailWithLeadingAndTrailingSpaces" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testNullName" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testInvalidNameWithDigits" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testNullPhoneNumber" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testPasswordMissingDigit" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testPasswordMissingLowercaseLetter" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testValidEmail{String}" classname="com.fssa.proplan.validator.TestUserValidator" time="0">
-    <error message="No ParameterResolver registered for parameter [java.lang.String arg0] in method [void com.fssa.proplan.validator.TestUserValidator.testValidEmail(java.lang.String) throws com.fssa.proplan.exceptions.UserException]." type="org.junit.jupiter.api.extension.ParameterResolutionException">org.junit.jupiter.api.extension.ParameterResolutionException: No ParameterResolver registered for parameter [java.lang.String arg0] in method [void com.fssa.proplan.validator.TestUserValidator.testValidEmail(java.lang.String) throws com.fssa.proplan.exceptions.UserException].
-</error>
-  </testcase>
-  <testcase name="testEmptyName" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testValidPhoneNumberWithSpaces" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testValidNameWithWhitespace" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testInvalidPhoneNumberLessThan10Digits" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testValidName" classname="com.fssa.proplan.validator.TestUserValidator" time="0.039"/>
-  <testcase name="testInvalidPhoneNumberNonNumeric" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testValidProfessionWithWhitespace" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testPasswordMissingSpecialCharacter" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testEmptyProfession" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testValidPhoneNumber" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testNullProfession" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testEmptyPassword" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testInvalidProfessionWithNumbers" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testValidProfession" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testProfessionWithOnlyDigits" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testIsValidUserValid" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testIsValidUserInvalid" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testEmptyNameWithWhitespace" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testWhitespacePassword" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testInvalidPhoneNumberMoreThan10Digits" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testPasswordMissingUppercaseLetter" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testInvalidEmail" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
-  <testcase name="testNullEmail" classname="com.fssa.proplan.validator.TestUserValidator" time="0"/>
+  <testcase name="testValidAddBudget" classname="com.fssa.proplan.service.TestBudgetService" time="0.29"/>
 </testsuite>

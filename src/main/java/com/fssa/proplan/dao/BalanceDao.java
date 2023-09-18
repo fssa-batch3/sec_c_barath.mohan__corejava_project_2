@@ -42,7 +42,7 @@ public class BalanceDao {
 	public static boolean updateUserBalance(User user, double balance) throws DaoException {
 
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
-
+ 
 			// SQL query to update the balance of a user based on their user_id
 			String query = "UPDATE balance SET balance = ? WHERE user_id = ?";
 

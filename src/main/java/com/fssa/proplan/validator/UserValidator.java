@@ -45,13 +45,13 @@ public class UserValidator {
 			throw new UserException(UserValidationErrors.INVALID_EMAIL_NULL);
 		}//		storing the regular expression pattern to validate the given user input
 //		this pattern checks for '@' symbol and checks for '.' at end of the string
-			String emailRegex = "^.*@.*\\..*$";
+			String emailRegex = "^.*@.*\\..*$"; 
 
 		Pattern pattern = Pattern.compile(emailRegex);
 		Matcher matcher = pattern.matcher(email.trim());
 
 		if (!matcher.matches()) {
-			throw new UserException(UserValidationErrors.INVALID_EMAIL+email);
+			throw new UserException(UserValidationErrors.INVALID_EMAIL);
 		} 
 		return true;
 	}

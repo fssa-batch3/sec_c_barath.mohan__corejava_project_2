@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: com.fssa.proplan.service.TestTransactionService
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.887 s - in com.fssa.proplan.service.TestTransactionService
+Tests run: 7, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.616 s <<< FAILURE! - in com.fssa.proplan.service.TestTransactionService
+testValidGetExpenseTransactionDetails  Time elapsed: 0.075 s  <<< ERROR!
+java.lang.IllegalArgumentException: No enum constant com.fssa.proplan.enumclass.TransactionType.Expense
+	at com.fssa.proplan.service.TestTransactionService.testValidGetExpenseTransactionDetails(TestTransactionService.java:110)
+
+testValidGetIncomeTransactionDetails  Time elapsed: 0.06 s  <<< ERROR!
+java.lang.IllegalArgumentException: No enum constant com.fssa.proplan.enumclass.TransactionType.Income
+	at com.fssa.proplan.service.TestTransactionService.testValidGetIncomeTransactionDetails(TestTransactionService.java:91)
+

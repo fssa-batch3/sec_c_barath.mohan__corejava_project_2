@@ -20,7 +20,7 @@ public class UserService {
 	public UserService(UserDao userDao, UserValidator userValidator) {
 		this.userDao = userDao;
 		this.userValidator = userValidator;
-	}
+	} 
 
 	// Adds a new user to the database if the user is valid and doesn't already
 	// exist.
@@ -40,6 +40,7 @@ public class UserService {
 
 		return false;
 	}
+	 
 
 	public boolean updateUser(User user) throws DaoException, UserException {
 		// Check if the user is valid based on the userValidator
@@ -55,7 +56,7 @@ public class UserService {
 			return true;
 		}
 
-		return false;
+		return false; 
 	}
 
 	// Clears all user-related data from the database, including balance and
@@ -84,18 +85,17 @@ public class UserService {
 
 		// Validate the user object using the UserValidator
 		if (userValidator.isValidUser(user)) {
-
 			// Check if the user exists in the DAO
 			return userDao.isUserExist(user);
 		}
-
+ 
 		return false;
 	}
 
 	public User login(String email, String password) throws DaoException, UserException {
 
 		User user = null;
-		if (userValidator.isValidEmail(email) && userValidator.isValidEmail(email)) {
+		if (userValidator.isValidEmail(email) && userValidator.isValidPassword(password)) {
 			user = userDao.login(email, password);
 		}
 

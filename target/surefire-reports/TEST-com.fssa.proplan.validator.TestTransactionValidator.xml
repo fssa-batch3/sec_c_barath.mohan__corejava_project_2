@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.fssa.proplan.validator.TestTransactionValidator" time="0.031" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.fssa.proplan.validator.TestTransactionValidator" time="0.043" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-17\bin"/>
-    <property name="sun.java.command" value="C:\Users\BARATH~1\AppData\Local\Temp\surefire12645827961001811742\surefirebooter1203076864991664922.jar C:\Users\BarathMohan\AppData\Local\Temp\surefire12645827961001811742 2023-08-24T10-58-01_035-jvmRun1 surefire6078937908614314771tmp surefire_02800978438487385028tmp"/>
+    <property name="sun.java.command" value="C:\Users\BARATH~1\AppData\Local\Temp\surefire10185199811928928704\surefirebooter4609340580057810259.jar C:\Users\BarathMohan\AppData\Local\Temp\surefire10185199811928928704 2023-09-15T18-47-19_217-jvmRun1 surefire13369306686842618710tmp surefire_017411253684126951080tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\BarathMohan\eclipse-workspace\proplan\target\test-classes;C:\Users\BarathMohan\eclipse-workspace\proplan\target\classes;C:\Users\BarathMohan\.m2\repository\org\junit\jupiter\junit-jupiter\5.9.1\junit-jupiter-5.9.1.jar;C:\Users\BarathMohan\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.9.1\junit-jupiter-api-5.9.1.jar;C:\Users\BarathMohan\.m2\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;C:\Users\BarathMohan\.m2\repository\org\junit\platform\junit-platform-commons\1.9.1\junit-platform-commons-1.9.1.jar;C:\Users\BarathMohan\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\BarathMohan\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.9.1\junit-jupiter-params-5.9.1.jar;C:\Users\BarathMohan\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.9.1\junit-jupiter-engine-5.9.1.jar;C:\Users\BarathMohan\.m2\repository\org\junit\platform\junit-platform-engine\1.9.1\junit-platform-engine-1.9.1.jar;C:\Users\BarathMohan\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\BarathMohan\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\BARATH~1\AppData\Local\Temp\surefire12645827961001811742\surefirebooter1203076864991664922.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\BARATH~1\AppData\Local\Temp\surefire10185199811928928704\surefirebooter4609340580057810259.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.7+8-LTS-224"/>
@@ -59,10 +59,10 @@
   </properties>
   <testcase name="testValidateTransactionTypeValid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0"/>
   <testcase name="testValidateUserInvalid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0"/>
-  <testcase name="testValidateUserValid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0.001"/>
+  <testcase name="testValidateUserValid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0.034"/>
   <testcase name="testValidateAmountValid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0"/>
-  <testcase name="testValidateTransactionTypeInvalid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0.002"/>
-  <testcase name="testValidateTransactionInvalid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0.004"/>
-  <testcase name="testValidateTransactionValid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0.002"/>
-  <testcase name="testValidateAmountInvalid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0.013"/>
+  <testcase name="testValidateTransactionTypeInvalid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0"/>
+  <testcase name="testValidateTransactionInvalid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0"/>
+  <testcase name="testValidateTransactionValid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0"/>
+  <testcase name="testValidateAmountInvalid" classname="com.fssa.proplan.validator.TestTransactionValidator" time="0"/>
 </testsuite>
