@@ -1,10 +1,13 @@
 package com.fssa.proplan.model;
 
+import java.util.List;
+
 public class BudgetCategory {
 
 	private String categoryName;
 	private double budgetAmount;
 	private double amountSpent;
+	private List<Transaction> transactions;
 	
 	public String getCategoryName() { 
 		return categoryName;
@@ -24,11 +27,18 @@ public class BudgetCategory {
 	public void setAmountSpent(double amountSpent) {
 		this.amountSpent = amountSpent;
 	}
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
+	}
 	@Override
 	public String toString() {
 		return "BudgetCategory [categoryName=" + categoryName + ", budgetAmount=" + budgetAmount + ", amountSpent="
-				+ amountSpent + "]";
+				+ amountSpent + ", transactions=" + transactions + "]";
 	}
+
 	
 	
 }

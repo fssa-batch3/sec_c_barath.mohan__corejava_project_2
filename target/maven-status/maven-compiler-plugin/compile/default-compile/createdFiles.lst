@@ -15,6 +15,8 @@ com\fssa\proplan\model\BudgetCategory.class
 com\fssa\proplan\exceptions\UserException.class
 com\fssa\proplan\logger\Logger.class
 com\fssa\proplan\dao\UserDao.class
+com\fssa\proplan\errormessages\BudgetValidationError.class
+com\fssa\proplan\exceptions\BudgetValidationException.class
 com\fssa\proplan\service\TransactionService.class
 com\fssa\proplan\dao\TransactionDao.class
 com\fssa\proplan\errormessages\TransactionError.class

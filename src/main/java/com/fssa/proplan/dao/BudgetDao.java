@@ -102,7 +102,7 @@ public class BudgetDao {
 			throw new DaoException(ex.getMessage());
 		}
 		return -1;
- 
+
 	}
 
 	public boolean isBudgetExists(User user) throws DaoException {
@@ -174,7 +174,7 @@ public class BudgetDao {
 
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
 
-			String query = "SELECT category_name,budget_amount,amount_spent FROM budget_categories WHERE user_id=?";
+			String query = "SELECT category_id,category_name,budget_amount,amount_spent FROM budget_categories WHERE user_id=?";
 
 			try (PreparedStatement psmt = con.prepareStatement(query)) {
 
@@ -187,6 +187,8 @@ public class BudgetDao {
 						category.setAmountSpent(rs.getDouble("amount_spent"));
 						category.setBudgetAmount(rs.getDouble("budget_amount"));
 						category.setCategoryName(rs.getString("category_name"));
+						category.setTransactions(
+								TransactionDao.getTransactionDetailsByCategory(rs.getInt("category_id")));
 						budgetCategories.add(category);
 
 					}
@@ -326,7 +328,7 @@ public class BudgetDao {
 		}
 
 	}
-	
+
 	public static double getBudgetAmountSpent(int userId) throws DaoException {
 
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
@@ -357,7 +359,7 @@ public class BudgetDao {
 		return -1;
 
 	}
-	
+
 	public static boolean addBudgetExpense(int userId, double amount) throws DaoException {
 
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {
@@ -381,13 +383,11 @@ public class BudgetDao {
 
 		SQLException ex) {
 			ex.printStackTrace();
-			
+
 			throw new DaoException(ex.getMessage());
 		}
 		return true;
 
 	}
-	
-	
 
 }

@@ -29,7 +29,7 @@ public class TransactionService {
 		this.transactionDao = transactionDao;
 		this.transactionValidator = transactionValidator;
 		this.userDao = userDao;
-	}
+	} 
 
 	/**
 	 * Adds a new transaction to the system.

@@ -22,7 +22,7 @@ class TestProplanDao {
 			assertTrue(true);
 		} else {
 			assertFalse(true);
-		}
+		} 
 
 	}
 }

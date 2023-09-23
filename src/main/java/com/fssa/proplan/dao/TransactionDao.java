@@ -35,7 +35,7 @@ public class TransactionDao {
 				psmt.setDate(3, sqlDate);
 				psmt.setDouble(4, amount);
 				psmt.setDouble(5, balance);
-				psmt.setString(6, remarks);
+				psmt.setString(6, remarks); 
 
 				int rowAffected = psmt.executeUpdate();
 
@@ -205,6 +205,43 @@ public class TransactionDao {
 
 	}
 
+	public static List<Transaction> getTransactionDetailsByCategory(int categoryId) throws DaoException {
+		try (Connection con = ConnectionUtil.getSchemaConnection()) {
+
+			String query = "SELECT transaction_type,date,balance,amount,remarks FROM transactions where category_id=? ";
+
+			try (PreparedStatement psmt = con.prepareStatement(query)) {
+
+				psmt.setInt(1, categoryId);
+
+				try (ResultSet rs = psmt.executeQuery()) {
+
+					List<Transaction> transactionDetails = new ArrayList<>();
+
+					// Fetch the transaction details from the result set and add to the list.
+					while (rs.next()) {
+
+						Transaction transaction = new Transaction();
+						transaction.setAmount(rs.getDouble("amount"));
+						transaction.setRemarks(rs.getString("remarks"));
+
+						transaction.setTransactionType(
+								TransactionType.valueOf(rs.getString("transaction_type").toUpperCase()));
+						transaction.setDate(rs.getDate("date").toLocalDate());
+						transaction.setBalance(rs.getDouble("balance"));
+						transactionDetails.add(transaction);
+					}
+
+					return transactionDetails;
+				}
+
+			}
+
+		} catch (SQLException ex) {
+			throw new DaoException(ex.getMessage());
+		}
+
+	}
 	public static double getTotalTransactionAmount(User user, String transactionType) throws DaoException {
 
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {

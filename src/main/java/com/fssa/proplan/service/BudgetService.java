@@ -34,7 +34,7 @@ public class BudgetService {
 		}
 		return false;
 	}
-
+ 
 	public int getBudgetIdByUser(User user) throws DaoException {
 
 		if (userDao.isUserExist(user)) {
@@ -51,5 +51,6 @@ public class BudgetService {
 		return null;
 	
 	}
+	
 
 }
