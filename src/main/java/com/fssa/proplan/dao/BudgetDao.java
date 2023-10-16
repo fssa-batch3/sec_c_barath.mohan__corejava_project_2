@@ -169,7 +169,7 @@ public class BudgetDao {
 		return null;
 
 	}
-
+ 
 	public ArrayList<BudgetCategory> getBudgetCategoriesByUserId(int userId) throws DaoException {
 
 		try (Connection con = ConnectionUtil.getSchemaConnection()) {

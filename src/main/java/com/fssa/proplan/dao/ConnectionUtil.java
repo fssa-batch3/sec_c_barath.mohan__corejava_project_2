@@ -17,24 +17,24 @@ public class ConnectionUtil {
 		String userName;
 		String passWord;
 
-//		// Check if the "CI" environment variable is set
-//		String environment = System.getenv("CI");
-//
-//		if (environment != null && environment.equalsIgnoreCase("true")) {
-//			// Use cloud database credentials
-//			url = System.getenv("DATABASE_HOST");
-//			userName = System.getenv("DATABASE_USERNAME");
-//			passWord = System.getenv("DATABASE_PASSWORD");
-//		} else {
-//			// Use local database credentials
-//			url = System.getenv("DATABASE_HOST");
-//			userName = System.getenv("DATABASE_USERNAME");
-//			passWord = System.getenv("DATABASE_PASSWORD");
-//		}
+		// Check if the "CI" environment variable is set
+		String environment = System.getenv("CI");
 
-		url = System.getenv("DATABASE_HOST");
-		userName = System.getenv("DATABASE_USERNAME");
-		passWord = System.getenv("DATABASE_PASSWORD");
+		if (environment != null && environment.equalsIgnoreCase("true")) {
+			// Use cloud database credentials
+			url = System.getenv("DATABASE_HOST");
+			userName = System.getenv("DATABASE_USERNAME");
+			passWord = System.getenv("DATABASE_PASSWORD");
+		} else {
+			// Use local database credentials
+			url = System.getenv("DATABASE_HOST");
+			userName = System.getenv("DATABASE_USERNAME");
+			passWord = System.getenv("DATABASE_PASSWORD");
+		}
+
+//		url = System.getenv("DATABASE_HOST");
+//		userName = System.getenv("DATABASE_USERNAME");
+//		passWord = System.getenv("DATABASE_PASSWORD");
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println(url);
